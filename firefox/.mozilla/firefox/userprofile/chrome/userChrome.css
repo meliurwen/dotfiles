@@ -1,0 +1,30 @@
+
+
+#urlbar, #navigator-toolbox #searchbar {border: none !important;}
+
+
+#navigator-toolbox {
+  border: none !important;
+}
+
+
+toolbox {
+  z-index: 10;
+  margin-top: 0px !important;
+  margin-bottom: -30px !important;
+  height: 0 !important;
+  pointer-events: none;
+}
+vbox {pointer-events: all;}
+
+
+#nav-bar {
+  opacity: 0;
+  pointer-events: none;
+  transition: transform, ease-in-out 0.2s, opacity 0.2s ease-in-out !important;
+}
+/* All the states in which the URL bar is visible */
+vbox:hover ~ #nav-bar, toolbox:focus-within > #nav-bar, #nav-bar:hover, #mainPopupSet:hover ~ box #nav-bar, #mainPopupSet:focus-within ~ box #nav-bar {
+  opacity: 1;
+  pointer-events: all;
+}

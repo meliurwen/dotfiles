@@ -1,0 +1,70 @@
+* {
+  color-magenta: #e3007f;
+  color-darkBlue: #282C33;
+  color-grey: #8ca0aa;
+  color-selectedDarkBlue: #2e3b52;
+
+  background-color: @color-darkBlue;
+  border-color: #2e343f;
+  text-color: @color-grey;
+  border-radius: 8;
+}
+
+mainbox {
+  children: [inputbar, message, listview, mode-switcher];
+}
+
+inputbar {
+  border: 0 0 1px 0;
+  children: [prompt, textbox-prompt-colon, entry, case-indicator];
+}
+                                                                       
+textbox-prompt-colon {
+  enabled: false;
+  text-color: inherit;
+  str: "";
+  padding: 16px;
+  expand: false; 
+  border: 0 1px 0 0;
+}
+
+prompt {
+  enabled: false;
+  padding: 16px;
+  border: 0 1px 0 0;
+}
+
+textbox {
+  background-color: #2e343f;
+  border-color: @color-darkBlue;
+}
+
+entry {
+  padding: 16px;
+}
+
+listview {
+  cycle: false;
+  lines: 8;
+  scrollbar: true;
+}
+
+scrollbar {
+  background-color: @color-selectedDarkBlue;
+  handle-width: 10px;
+  handle-color: @color-darkBlue;
+}
+
+element {
+  padding: 4px;
+}
+
+element selected {
+  background-color: @color-selectedDarkBlue;
+  text-color: @color-magenta;
+}
+
+button selected {
+  background-color: @color-selectedDarkBlue;
+  text-color:       @color-magenta;
+}

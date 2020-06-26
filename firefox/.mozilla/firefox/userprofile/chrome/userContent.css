@@ -1,0 +1,11 @@
+@-moz-document url("about:newtab"), url("about:home"), url("about:blank") {
+    body {
+        --newtab-background-color: #2A2A2E !important;
+        --newtab-text-primary-color: #CCCCCC !important;
+        --newtab-search-dropdown-color: #2A2A2E !important;
+        --newtab-search-dropdown-header-color: #2A2A2E !important;
+        --newtab-search-icon-color: rgba(255, 255, 255, 0.95) !important;
+        --newtab-topsites-background-color: #373737 !important;
+        --newtab-textbox-background-color: #373737 !important;
+    }
+}

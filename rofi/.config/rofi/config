@@ -1,0 +1,8 @@
+rofi.combi-modi:    window,drun,ssh
+;rofi.theme:        solarized
+rofi.font:          Ubuntu Nerd Fonts 13
+rofi.modi:          drun,calc
+rofi.show:          drun,calc
+rofi.show-icons:    true
+rofi.sidebar-mode:  true
+
