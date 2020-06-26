@@ -1,0 +1,70 @@
+
+! fonts
+URxvt*letterSpace: 	    	-1
+URxvt.lineSpace: 		0
+!Xft.size:						10
+URxvt*font:                 	xft:ProggyCleanTTSZ Nerd Font Mono:regular:size=10
+URxvt*imFont:               	xft:ProggyCleanTTSZ Nerd Font Mono:regular:size=10
+URxvt*boldFont:             	xft:ProggyCleanTTSZ Nerd Font Mono:bold:size=10
+URxvt*italicFont:           	xft:ProggyCleanTTSZ Nerd Font Mono:italic:size=10
+URxvt*boldItalicFont:     	xft:ProggyCleanTTSZ Nerd Font Mono:regular:size=10
+
+! perl extensions
+URxvt.perl-ext-common:  default,clipboard,url-select,keyboard-select
+
+
+Xft.dpi:                        109
+URxvt*termName:                 rxvt-unicode
+URxvt.depth:                    0
+URxvt.iso14755:                 false
+URxvt.iso14755_52:              false
+URxvt*geometry:                 64x23
+URxvt.scrollBar:                false
+URxvt*loginShell:               true
+URxvt.perl-ext-common:          default,clipboard
+URxvt.keysym.Shift-Control-C:   perl:clipboard:copy
+URxvt.keysym.Shift-Control-V:   perl:clipboard:paste
+URxvt.clipboard.autocopy:       true
+
+! Colors
+!*background:   #33393B
+!*foreground:   #eff0eb
+!*cursorColor:  #57c7ff
+!*color0:      #33303b  
+!*color8:      #4f4b58
+!*color1:      #FF9BB8
+!*color9:      #FF9BB8
+!*color2:      #00E3FF
+!*color10:     #00E3FF
+!*color3:      #f3f99d
+!*color11:     #f3f99d
+!*color4:      #9aedfe    
+!*color12:      #FF9BB8
+!*color5:      #ff6ac1 
+!*color13:     #ff6ac1
+!*color6:      #FF9BB8
+!*color14:     #9aedfe 
+!*color7:      #FFFFFF
+!*color15:     #FFFFFF
+
+
+! Dracula Xresources palette
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15:    #E6E6E6
+
