@@ -1,0 +1,17 @@
+{
+    "editor.rulers": [
+    80
+    ],
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "workbench.enableExperiments": false,
+    "update.showReleaseNotes": false,
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "npm.fetchOnlinePackageInfo": false,
+    "extensions.autoUpdate": false,
+    "python.jediEnabled": false,
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Dracula",
+    "update.mode": "manual",
+    "extensions.ignoreRecommendations": true,
+}
