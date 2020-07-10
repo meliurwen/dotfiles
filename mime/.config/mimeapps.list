@@ -2,7 +2,7 @@
 application/octet-stream=org.gnome.gedit.desktop;
 image/gif=mpv.desktop;
 text/x-python3=org.gnome.gedit.desktop;
-image/png=feh.desktop;gimp.desktop;
+image/png=feh.desktop;org.gnome.eog.desktop;gimp.desktop;
 image/svg+xml=org.inkscape.Inkscape.desktop;org.gnome.gedit.desktop;inkscape.desktop;gimp.desktop;feh.desktop;
 application/pdf=org.gnome.Evince.desktop;org.inkscape.Inkscape.desktop;org.pwmt.zathura-pdf-poppler.desktop;
 text/html=firefox.desktop;
