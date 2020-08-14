@@ -14,4 +14,6 @@
     "workbench.colorTheme": "Dracula",
     "update.mode": "manual",
     "extensions.ignoreRecommendations": true,
+    "extensions.autoCheckUpdates": false,
+    "python.autoUpdateLanguageServer": false,
 }
