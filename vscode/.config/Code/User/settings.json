@@ -5,7 +5,6 @@
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "workbench.enableExperiments": false,
-    "update.showReleaseNotes": false,
     "workbench.settings.enableNaturalLanguageSearch": false,
     "npm.fetchOnlinePackageInfo": false,
     "extensions.autoUpdate": false,
@@ -18,4 +17,7 @@
     "python.autoUpdateLanguageServer": false,
     "python.dataScience.allowLiveShare": false,
     "python.languageServer": "Microsoft",
+    "extensions.showRecommendationsOnlyOnDemand": true,
+    "update.showReleaseNotes": false,
+    "git.autofetch": false,
 }
