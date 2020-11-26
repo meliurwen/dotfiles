@@ -20,4 +20,6 @@
     "extensions.showRecommendationsOnlyOnDemand": true,
     "update.showReleaseNotes": false,
     "git.autofetch": false,
+    "terminal.integrated.fontFamily": "'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback','PowerlineSymbols'",
+    "terminal.integrated.fontSize": 12,
 }
