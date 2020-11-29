@@ -17,19 +17,49 @@ function is_mute {
   amixer get Master | grep '%' | grep -oE '[^ ]+$' | grep off > /dev/null
 }
 
+function draw_bar {
+  percentual=$1
+  slices=$2
+  lvl=$((percentual / slices))
+  empty=$(((100 / slices) - lvl))
+  lvl_bar=""
+  for X in $(seq "$lvl"); do
+    lvl_bar="$lvl_bar$(printf '\u2588')"
+  done
+  empty_bar=""
+  for X in $(seq "$empty"); do
+    empty_bar="$empty_bar$(printf '\u2591')"
+  done
+  echo "$lvl_bar$empty_bar"
+}
+
 function send_notification {
-  iconSound="audio-volume-high"
-  iconMuted="audio-volume-muted"
   if is_mute ; then
-    dunstify -i $iconMuted -r 2593 -u normal "mute"
+    notif_icon="audio-volume-muted-dark"
+    notif_text="Muted"
   else
     volume=$(get_volume)
-    # Make the bar with the special character ─ (it's not dash -)
-    # https://en.wikipedia.org/wiki/Box-drawing_character
-    bar=$(seq --separator="─" 0 "$((volume / 5))" | sed 's/[0-9]//g')
-    # Send the notification
-    dunstify -i $iconSound -r 2593 -u normal "    $bar"
+    if [ $volume -le 0 ] ; then
+      notif_icon="audio-volume-none-dark"
+    else
+      if [ $volume -le 30 ] ; then
+        notif_icon="audio-volume-low-dark"
+      else
+        if [ $volume -le 85 ] ; then
+          notif_icon="audio-volume-medium-dark"
+        else
+          if [ $volume -le 100 ] ; then
+            notif_icon="audio-volume-high-dark"
+          else
+            notif_icon="audio-volume-overamplified-dark"
+          fi
+        fi
+      fi
+    fi
+    notif_text="$(draw_bar $volume 5)"
   fi
+  # Send the notification
+  dunstify -i $notif_icon -r 2593 -u normal "$notif_text"
 }
 
 case $1 in

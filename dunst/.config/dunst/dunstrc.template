@@ -1,10 +1,8 @@
-## Modified By Aditya Shakya ...
-
 [global]
 
 monitor = 0
 follow = mouse
-geometry = "250x50-20+40"
+geometry = "330x50-20+40"
 indicate_hidden = yes
 shrink = no
 transparency = 0
@@ -12,8 +10,8 @@ notification_height = 0
 separator_height = 4
 padding = 16
 horizontal_padding = 16
-frame_width = 2
-frame_color = "#43B581"
+frame_width = 1
+frame_color = "#285577"
 separator_color = frame
 sort = yes
 idle_threshold = 120
@@ -32,7 +30,7 @@ icon_position = left
 max_icon_size = 32
 
 ## Paths to default icons.
-icon_folders = /usr/share/icons/Adwaita/32x32/status/:/usr/share/icons/Adwaita/32x32/devices/
+icon_path = ${HOME}/.icons/Adwaita-dark-custom/32x32/status/:/usr/share/icons/hicolor/scalable/apps/:/usr/share/icons/hicolor/48x48/apps/
 sticky_history = yes
 history_length = 20
 dmenu = /usr/bin/dmenu -p dunst:

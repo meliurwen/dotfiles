@@ -233,6 +233,7 @@ exec --no-startup-id feh --bg-fill $HOME/Scaricati/northern_lights_by_aenami_dbb
 exec --no-startup-id compton --config $HOME/.config/compton/config
 
 # Notification Manager
+exec --no-startup-id envsubst < ~/.config/dunst/dunstrc.template > ~/.config/dunst/dunstrc
 exec --no-startup-id dunst --config $HOME/.config/dunst/dunstrc
 
 # Pulseaudio
