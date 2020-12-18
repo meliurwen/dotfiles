@@ -9,6 +9,8 @@ grey-dark = #3f3f3f
 orange = #ffa000
 red = #bd2c40
 
+pink = #9e1553
+pink-dark = #3f3c3f
 
 
 [global/wm]
@@ -236,8 +238,8 @@ label-mode-background = #e60053
 
 label-focused = %index%
 label-focused-foreground = ${color.white}
-label-focused-background = ${color.grey-dark}
-label-focused-underline = ${color.orange}
+label-focused-background = ${color.pink-dark}
+label-focused-underline = ${color.pink}
 label-focused-padding = 4
 
 label-unfocused = %index%
