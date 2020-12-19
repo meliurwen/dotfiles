@@ -19,8 +19,8 @@ fade-in-step = 0.03;
 fade-out-step = 0.03;
 no-fading-openclose = false;
 
-# Good performance gain, but could be buggy with intel cards
-glx-no-rebind-pixmap = true;
+# Good performances gain, but could be buggy with intel cards
+#glx-no-rebind-pixmap = true;
 
 ## Opacity
 

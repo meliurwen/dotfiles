@@ -239,7 +239,7 @@ exec_always --no-startup-id numlockx on
 exec --no-startup-id feh --bg-fill $HOME/Scaricati/alfven-ato-array.jpg
 
 # Compositor
-exec --no-startup-id picom --config $HOME/.config/compton/config
+exec --no-startup-id picom --experimental-backends --config ~/.config/picom/config
 
 # Notification Manager (dunst)
 exec --no-startup-id envsubst < ~/.config/dunst/dunstrc.template > ~/.config/dunst/dunstrc && dunst --config $HOME/.config/dunst/dunstrc
