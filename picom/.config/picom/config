@@ -36,3 +36,8 @@ blur-method = "gaussian";
 blur-size = 10;
 blur-deviation = 5.0;
 
+blur-background-exclude = [
+    "_GTK_FRAME_EXTENTS@:c",
+    "_NET_WM_STATE@:a *= '_NET_WM_STATE_HIDDEN'"
+];
+
