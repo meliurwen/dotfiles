@@ -2,6 +2,10 @@
 
 backend = "glx";
 vsync = true;
+glx-no-stencil = true;
+
+# Good performances gain, but could be buggy with intel cards
+#glx-no-rebind-pixmap = true;
 
 ## Shadow
 
@@ -11,6 +15,13 @@ shadow-offset-x = -1;
 shadow-offset-y = -1;
 shadow-opacity = 0.3;
 
+shadow-exclude = [
+    "_GTK_FRAME_EXTENTS@:c",
+    "_NET_WM_STATE@:a *= '_NET_WM_STATE_HIDDEN'",
+    "class_g = 'URxvt'",
+    "class_g = 'TelegramDesktop'"
+];
+
 ## Fading
 
 fading = true;
@@ -19,25 +30,39 @@ fade-in-step = 0.03;
 fade-out-step = 0.03;
 no-fading-openclose = false;
 
-# Good performances gain, but could be buggy with intel cards
-#glx-no-rebind-pixmap = true;
+fade-exclude = [
+    "window_type = 'popup_menu'",
+    "window_type = 'menu'",
+    "window_type = 'utility'",
+    "class_g = 'TeamSpeak 3'"
+]
 
 ## Opacity
 
 opacity-rule = [
-	"90:class_g = 'URxvt' && !_NET_WM_STATE@:32a",
-	"0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
+   "90:class_g = 'URxvt' && !_NET_WM_STATE@:32a"
+#   "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
 ];
 
 ## Blur
 
-blur-background = true;
-blur-method = "gaussian";
+blur-background = false;
+blur-method = "kernel";
 blur-size = 10;
 blur-deviation = 5.0;
+blur-kern= "7x7box";
+
+# Blur background of opaque windows with transparent frames as well.
+blur-background-frame = false;
+# Do not let blur radius adjust based on window opacity.
+blur-background-fixed = true;
 
 blur-background-exclude = [
     "_GTK_FRAME_EXTENTS@:c",
-    "_NET_WM_STATE@:a *= '_NET_WM_STATE_HIDDEN'"
+    "_NET_WM_STATE@:a *= '_NET_WM_STATE_HIDDEN'",
+    "window_type = 'utility'",
+    "window_type = 'dialog'",
+    "window_type = 'notification'",
+    "window_type = 'normal' && !class_g = 'URxvt'",
+    "class_g = 'TeamSpeak 3'"
 ];
-
