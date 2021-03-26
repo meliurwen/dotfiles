@@ -2,6 +2,9 @@
 
 #urlbar, #navigator-toolbox #searchbar {border: none !important;}
 
+.titlebar-buttonbox-container, .titlebar-spacer {
+  display: none !important;
+}
 
 #navigator-toolbox {
   border: none !important;
