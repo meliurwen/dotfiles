@@ -99,5 +99,22 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=500000000
+SAVEHIST=100000000
+
 #Upgrade the system
 alias upgrade='sudo apt-get update && sudo apt upgrade && sudo apt-get autoremove --purge && sudo apt-get clean'
+
+# Colored manpages
+man() {
+    env \
+        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+        LESS_TERMCAP_md=$(printf "\e[1;31m") \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[45;93m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[4;93m") \
+        man "$@"
+}
