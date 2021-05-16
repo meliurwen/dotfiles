@@ -63,6 +63,6 @@ blur-background-exclude = [
     "window_type = 'utility'",
     "window_type = 'dialog'",
     "window_type = 'notification'",
-    "window_type = 'normal' && !class_g = 'URxvt'",
+    "window_type = 'normal' && !class_g = 'URxvt' && !class_g = 'Rofi'",
     "class_g = 'TeamSpeak 3'"
 ];

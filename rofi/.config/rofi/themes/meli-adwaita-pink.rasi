@@ -1,0 +1,145 @@
+/*
+  Title: Meli Adwaita Pink
+  Author: Meliurwen
+  Docs: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown
+  Rofi version: 1.5.4
+*/
+
+configuration {
+  display-drun: "";
+  show-icons:   true;
+}
+
+* {
+  transparent:         #00000000;
+  background:          #282a36F0;
+  foreground:          #f8f8f2;
+  selected-color:      #c5457b;
+  window-border-color: #9e1553;
+  urgent-color:        #900000;
+  active-color:        #ff7600;
+}
+
+#window {
+  background-color: @background;
+  border-color:     @window-border-color;
+  font:             "Ubuntu 16";
+  transparency:     "real";
+  location:         center;
+  anchor:           center;
+  border:           1;
+  padding:          25;
+  fullscreen:       false;
+  width:            40%;
+/*height:           40%; if enabled `lines` in `listview` has no effect*/
+  x-offset:         0;
+  y-offset:         0;
+}
+
+#mainbox {
+  background-color: @transparent;
+  children:         [inputbar, message, listview];
+}
+
+#inputbar {
+  background-color: inherit;
+  children:         [prompt, entry];
+}
+
+#prompt {
+  background-color: inherit;
+  text-color:       @foreground;
+  padding:          0px 2px 0px 2px;
+}
+
+#entry {
+  background-color: inherit;
+  text-color:       @foreground;
+  padding:          0px 0px 4px 4px;
+}
+
+#message {
+  background-color: inherit;
+  border:           1;
+  border-color:     @selected-color;
+  padding:          5;
+}
+
+#listview {
+  background-color: inherit;
+  padding:          2px 0px 0px;
+  spacing:          2px;
+  columns:          1;
+  scrollbar:        true;
+  cycle:            false;
+  lines:            8;
+}
+
+#scrollbar {
+  background-color: inherit;
+  handle-color:     @selected-color;
+  handle-width:     8px;
+  border:           1;
+  border-color:     @selected-color;
+  padding:          1;
+}
+
+#element {
+  border:  0;
+  padding: 2;
+}
+
+#element normal.normal {
+  background-color: inherit;
+  text-color:       @foreground;
+}
+
+#element alternate.normal {
+  background-color: inherit;
+  text-color:       @foreground;
+}
+
+#element selected.normal {
+  background-color: @selected-color;
+  text-color:       @foreground;
+}
+
+#element normal.urgent {
+  background-color: @urgent-color;
+  text-color:       @foreground;
+}
+
+#element alternate.urgent {
+  background-color: @urgent-color;
+  text-color:       @foreground;
+}
+
+#element selected.urgent {
+  background-color: @selected-color;
+  text-color:       @urgent-color;
+}
+
+#element normal.active {
+  background-color: @active-color;
+  text-color:       @foreground;
+}
+
+#element alternate.active {
+  background-color: @active-color;
+  text-color:       @foreground;
+}
+
+#element selected.active {
+  background-color: @selected-color;
+  text-color:       @active-color;
+}
+
+#error-message {
+  background-color: inherit;
+}
+
+#textbox {
+  background-color: inherit;
+  text-color:       @foreground;
+}
+
