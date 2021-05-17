@@ -2,7 +2,8 @@
   Title: Meli Adwaita Pink
   Author: Meliurwen
   Docs: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown
-  Rofi version: 1.5.4
+  Rofi version: 1.6.1
+  Note: compatible also with rofi 1.5.4
 */
 
 configuration {
@@ -87,6 +88,14 @@ configuration {
 #element {
   border:  0;
   padding: 2;
+  children: [element-icon, element-text];
+}
+
+#element-icon {
+  size:25px;
+}
+
+#element-text {
 }
 
 #element normal.normal {
