@@ -22,7 +22,9 @@ time_to_human(){
 
 OUTPUT=""
 
-if pidof mpv > /dev/null; then
+pgrep -u "$UID" -x mpv > /dev/null
+
+if [ $? -eq 0 ]; then
 
     # The "16) Connection refused" error happens at the row below
     # See: https://github.com/deterenkelt/Nadeshiko/wiki/Known-issues-for-Nadeshiko%E2%80%91mpv#----connection-refused
