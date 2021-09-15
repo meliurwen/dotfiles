@@ -3,9 +3,9 @@
 ## Note: In order to use this script you have to tell to mpv to enable a socket.
 ##       Two ways are possible to achieve this:
 ##       1) Use the argument --input-ipc-server when you  launch it. For example:
-##          `mpv --input-ipc-server=/tmp/mpvsocket Your.Video.File.mkv`
+##          `mpv --input-ipc-server=~/.cache/mpvsocket Your.Video.File.mkv`
 ##       2) Add the line below when in the `mpv.conf` file:
-##          `input-ipc-server=/tmp/mpvsocket`
+##          `input-ipc-server=~/.cache/mpvsocket`
 
 time_to_human(){
     if [ $API_OUTPUT -gt 3600 ]; then
@@ -28,35 +28,35 @@ if [ $? -eq 0 ]; then
 
     # The "16) Connection refused" error happens at the row below
     # See: https://github.com/deterenkelt/Nadeshiko/wiki/Known-issues-for-Nadeshiko%E2%80%91mpv#----connection-refused
-    TIME=$(echo '{ "command": ["get_property", "time-pos"] }' | socat - /tmp/mpvsocket)
+    TIME=$(echo '{ "command": ["get_property", "time-pos"] }' | socat - ~/.cache/mpvsocket)
     if [[ $(echo $TIME | jq -r .error) == "success" ]]; then
         while [ $# -gt 0 ]; do
             COMMAND=$1
             VALID_COMMAND=true
             case $COMMAND in
                 "time-pos")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "time-pos"] }' | socat - /tmp/mpvsocket)
+                    API_OUTPUT=$(echo '{ "command": ["get_property", "time-pos"] }' | socat - ~/.cache/mpvsocket)
                     ;;
                 "time-remaining")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "time-remaining"] }' | socat - /tmp/mpvsocket)
+                    API_OUTPUT=$(echo '{ "command": ["get_property", "time-remaining"] }' | socat - ~/.cache/mpvsocket)
                     ;;
                 "duration")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "duration"] }' | socat - /tmp/mpvsocket)
+                    API_OUTPUT=$(echo '{ "command": ["get_property", "duration"] }' | socat - ~/.cache/mpvsocket)
                     ;;
                 "media-title")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "media-title"] }' | socat - /tmp/mpvsocket)
+                    API_OUTPUT=$(echo '{ "command": ["get_property", "media-title"] }' | socat - ~/.cache/mpvsocket)
                     ;;
                 "playlist-pos")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "playlist-pos"] }' | socat - /tmp/mpvsocket)
+                    API_OUTPUT=$(echo '{ "command": ["get_property", "playlist-pos"] }' | socat - ~/.cache/mpvsocket)
                     ;;
                 "playlist-pos-1")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "playlist-pos-1"] }' | socat - /tmp/mpvsocket)
+                    API_OUTPUT=$(echo '{ "command": ["get_property", "playlist-pos-1"] }' | socat - ~/.cache/mpvsocket)
                     ;;
                 "playlist-count")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "playlist-count"] }' | socat - /tmp/mpvsocket)
+                    API_OUTPUT=$(echo '{ "command": ["get_property", "playlist-count"] }' | socat - ~/.cache/mpvsocket)
                     ;;
                 "core-idle" | "play-pause-btn")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "core-idle"] }' | socat - /tmp/mpvsocket)
+                    API_OUTPUT=$(echo '{ "command": ["get_property", "core-idle"] }' | socat - ~/.cache/mpvsocket)
                     ;;
                 *)
                     VALID_COMMAND=false
