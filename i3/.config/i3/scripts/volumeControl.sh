@@ -4,6 +4,7 @@
 # $ ./volumeControl.sh up
 # $ ./volumeControl.sh down
 # $ ./volumeControl.sh mute
+# $ ./volumeControl.sh mic
 
 # Script modified from these wonderful people:
 # https://github.com/dastorm/volume-notification-dunst/blob/master/volume.sh
@@ -15,6 +16,10 @@ function get_volume {
 
 function is_mute {
   amixer get Master | grep '%' | grep -oE '[^ ]+$' | grep off > /dev/null
+}
+
+function is_mic_mute {
+  amixer get Capture | grep '%' | grep -oE '[^ ]+$' | grep off > /dev/null
 }
 
 function draw_bar {
@@ -34,32 +39,38 @@ function draw_bar {
 }
 
 function send_notification {
-  if is_mute ; then
-    notif_icon="audio-volume-muted-dark"
-    notif_text="Muted"
-  else
-    volume=$(get_volume)
-    if [ $volume -le 0 ] ; then
-      notif_icon="audio-volume-none-dark"
+  if [ $1 == "audio" ] ; then
+    replace_id=2593
+    if is_mute ; then
+      notif_icon="audio-volume-muted-dark"
+      notif_text="Audio Muted"
     else
-      if [ $volume -le 30 ] ; then
+      volume=$(get_volume)
+      if [ $volume -le 0 ] ; then
+        notif_icon="audio-volume-none-dark"
+      elif [ $volume -le 30 ] ; then
         notif_icon="audio-volume-low-dark"
+      elif [ $volume -le 85 ] ; then
+        notif_icon="audio-volume-medium-dark"
+      elif [ $volume -le 100 ] ; then
+        notif_icon="audio-volume-high-dark"
       else
-        if [ $volume -le 85 ] ; then
-          notif_icon="audio-volume-medium-dark"
-        else
-          if [ $volume -le 100 ] ; then
-            notif_icon="audio-volume-high-dark"
-          else
-            notif_icon="audio-volume-overamplified-dark"
-          fi
-        fi
+        notif_icon="audio-volume-overamplified-dark"
       fi
+      notif_text="$(draw_bar $volume 5)"
     fi
-    notif_text="$(draw_bar $volume 5)"
+  else
+    replace_id=2594
+    if is_mic_mute ; then
+      notif_icon="microphone-sensitivity-muted"
+      notif_text="Microphone Muted"
+    else
+      notif_icon="microphone-sensitivity-high"
+      notif_text="Microphone On"
+    fi
   fi
   # Send the notification
-  dunstify -i $notif_icon -r 2593 -u normal "$notif_text"
+  dunstify -i $notif_icon -r $replace_id -u normal "$notif_text"
 }
 
 case $1 in
@@ -68,16 +79,21 @@ case $1 in
     amixer -D pulse set Master on > /dev/null
     # up the volume (+ 5%)
     amixer -D pulse sset Master 5%+ > /dev/null
-    send_notification
+    send_notification audio
     ;;
   down)
     amixer -D pulse set Master on > /dev/null
     amixer -D pulse sset Master 5%- > /dev/null
-    send_notification
+    send_notification audio
     ;;
   mute)
     # toggle mute
     amixer -D pulse set Master 1+ toggle > /dev/null
-    send_notification
+    send_notification audio
+    ;;
+  mic)
+    # toggle microphone mute
+    amixer -D pulse set Capture toggle > /dev/null
+    send_notification mic
     ;;
 esac
