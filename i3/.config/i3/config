@@ -199,14 +199,14 @@ bindsym XF86ScreenSaver exec "dm-tool lock"
 bindsym Print --release exec "screenshot_image=$(date +%F_%T).png && deepin-screenshot --no-notification -s /tmp/$screenshot_image && xclip -selection c -t image/png < /tmp/$screenshot_image  && rm /tmp/$screenshot_image && unset screenshot_image"
 
 # Speakers and Mic Controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/volumeControl.sh audio up
-bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/volumeControl.sh audio down
-bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/volumeControl.sh audio mute
-bindsym XF86AudioMicMute exec --no-startup-id ~/.config/i3/scripts/volumeControl.sh mic mute
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/scripts/deviceControl.sh audio up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/scripts/deviceControl.sh audio down
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/scripts/deviceControl.sh audio mute
+bindsym XF86AudioMicMute exec --no-startup-id ~/.config/i3/scripts/deviceControl.sh mic mute
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/volumeControl.sh brightness up
-bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/volumeControl.sh brightness down
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/scripts/deviceControl.sh brightness up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/scripts/deviceControl.sh brightness down
 
 # Turn screen off
 bindsym XF86Launch1 exec --no-startup-id xset dpms force off

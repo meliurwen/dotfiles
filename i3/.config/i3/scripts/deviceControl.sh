@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # You can call this script like this:
-# $ ./volumeControl.sh audio up
-# $ ./volumeControl.sh audio down
-# $ ./volumeControl.sh audio mute
-# $ ./volumeControl.sh mic mute
-# $ ./volumeControl.sh brightness up
-# $ ./volumeControl.sh brightness down
+# $ ./deviceControl.sh audio up
+# $ ./deviceControl.sh audio down
+# $ ./deviceControl.sh audio mute
+# $ ./deviceControl.sh mic mute
+# $ ./deviceControl.sh brightness up
+# $ ./deviceControl.sh brightness down
 
 # Acknowledgements:
 # https://github.com/dastorm/volume-notification-dunst/blob/master/volume.sh
