@@ -236,7 +236,7 @@ exec_always --no-startup-id numlockx on
 # launched an `exec` command.
 
 # Background
-exec --no-startup-id feh --bg-fill $HOME/Scaricati/alfven-ato-array.jpg
+exec --no-startup-id xwallpaper --daemon --output all --zoom "$(shuf -n1 -e $HOME/.local/share/backgrounds/*)"
 
 # Compositor
 exec --no-startup-id picom --config ~/.config/picom/config
