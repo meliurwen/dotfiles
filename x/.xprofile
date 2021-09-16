@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# This file is sourced on Debian and derivates only by basically all
+# graphical interface launchers (xinit, startx, xdm, GDM, LightDM, etc..).
+
+# It's loaded only by the following Display Managers:
+# - GDM
+# - LightDM
+# - LXDM
+# - SDDM
+#
+# It's NOT loaded (unless it's sourced) by any DM that loads the following files:
+# - ~/.xinitrc
+# - ~/.xsession
+# For example XDM or the command xinit and its wrapper startx
+

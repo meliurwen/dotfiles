@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# This file is sourced only on Debian and derivates by basically all
+# graphical interface launchers (xinit, startx, xdm, GDM, LightDM, etc..).
+
+# Uniform qt apps to gtk themes
+# Dependencies: qt5-style-plugins adwaita-qt
+export QT_QPA_PLATFORMTHEME=gtk3
+export QT_STYLE_OVERRIDE=adwaita-dark
+
+# Add `~/.local/bin` to $PATH
+C_PATH="$HOME/.local/bin"
+[ -d "$C_PATH" ] && export PATH="$C_PATH:$PATH" || \
+    echo "Custom PATH dir not found: $C_PATH"
+unset C_PATH
+
+# Mount remote volumes
+if $(fsmartconnect --version > /dev/null); then
+    fsmartconnect &
+fi
+
