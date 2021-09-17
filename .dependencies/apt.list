@@ -1,0 +1,58 @@
+# Core utilities
+curl
+wget
+git
+stow
+nano
+htop
+iotop
+nload
+
+# Non-essential but very useful program
+zsh
+tlp
+iwconfig
+
+haveged # Useful for some programs at boot that needs a good entropy
+
+# Drivers
+firmware-iwlwifi # Module for Intel wifi cards
+firmware-misc-nonfree # Intel graphics driver
+
+network-manager # Automatically handle network connections
+
+# Audio and  brightness
+brightnessctl
+pulseaudio
+alsa-utils
+
+# X Server
+xinit # startx and xinit
+xwallpaper
+xserver-xorg-video-intel
+
+# Desktop core apps
+i3-wm
+i3lock
+polybar
+rofi
+dunst
+picom
+rxvt-unicode
+pavucontrol
+nemo
+network-manager-gnome
+
+# Desktop core utilites
+mpv
+sxiv
+gedit
+mousepad
+zathura
+deepin-screenshot
+
+# Useful apps
+chromium
+gimp
+inkscape
+telegram-desktop
