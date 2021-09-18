@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # This file is used by xinit and its wrapper startx.
 # Display managers like xdm doesn't use this file at all
 #
@@ -20,11 +22,14 @@ fi
 #       consequences of removing them.
 # run all system xinitrc shell scripts.
 if [ -d /etc/X11/Xsession.d ]; then
-    for i in /etc/X11/Xsession.d/* ; do
-        if [ -x "$i" ]; then
-      . "$i"
-        fi
-    done
+    SESSIONFILES=$(run-parts --list /etc/X11/Xsession.d)
+    if [ -n "$SESSIONFILES" ]; then
+        set +e
+        for SESSIONFILE in $SESSIONFILES; do
+            . $SESSIONFILE
+        done
+        set -e
+    fi
 fi
 
 # To avoid very solw startup of many GTK apps
