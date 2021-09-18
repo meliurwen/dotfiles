@@ -15,7 +15,7 @@ C_PATH="$HOME/.local/bin"
 unset C_PATH
 
 # Mount remote volumes
-if $(fsmartconnect --version > /dev/null); then
+if fsmartconnect --version > /dev/null ; then
     fsmartconnect &
 fi
 

@@ -4,8 +4,8 @@
 # interfaces launchers (all DM and xinitrc/startx) should go in ~/.xsessionrc .
 # This file is only sourced on Debian and derivates, so here a rudimentary
 # check to source it in case we're not on Debian or derivative distro.
-if [ ! -f /etc/debian_version]; then
-    [ -f $HOME/.xsessionrc ] && . $HOME/.xsessionrc
+if [ ! -f /etc/debian_version ]; then
+    [ -f "$HOME/.xsessionrc" ] && . "$HOME/.xsessionrc"
 fi
 
 # Set i3 as default if no argument is passed
