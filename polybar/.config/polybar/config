@@ -151,14 +151,14 @@ ramp-volume-3 = 
 
 [module/wired-network]
 type = internal/network
-interface = enp0s25
+interface = ${env:POLY_ENP}
 
 format-connected = <label-connected>
 label-connected = 
 
 [module/wireless-network]
 type = internal/network
-interface = wlp3s0
+interface = ${env:POLY_WLP}
 
 format-connected = <ramp-signal>
 format-disconnected = <label-disconnected>
@@ -187,7 +187,7 @@ animation-packetloss-framerate = 500
 type = internal/temperature
 interval = 5
 thermal-zone = 0
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon4/temp1_input
+hwmon-path = ${env:POLY_HWMON:}
 
 base-temperature = 40
 warn-temperature = 80
