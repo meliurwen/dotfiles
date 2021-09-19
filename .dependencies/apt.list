@@ -10,7 +10,7 @@ nload
 
 # Non-essential but very useful program
 zsh
-tlp
+terminfo # ~/.zshrc dependency
 iwconfig
 
 haveged # Useful for some programs at boot that needs a good entropy
@@ -54,5 +54,4 @@ deepin-screenshot
 # Useful apps
 chromium
 gimp
-inkscape
 telegram-desktop
