@@ -10,16 +10,8 @@ setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
 setopt share_history          # share command history data
 
-
-### Aliases
-alias upgrade='sudo apt-get update && \
-               sudo apt upgrade && \
-               sudo apt-get autoremove --purge && \
-               sudo apt-get clean' # System clean upgrade
-alias history='history 1' # Print whole history
-alias diff='diff --color'
-alias ls='ls --color=tty'
-
+# Aliases
+[ -f "$HOME/.aliases" ] && . "$HOME/.aliases"
 
 ### Keybinds
 # See:
