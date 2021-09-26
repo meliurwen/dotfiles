@@ -264,7 +264,7 @@ interval = 1
 format =  <label>
 label = %output%
 
-click-left = echo 'cycle pause' | socat - /tmp/mpvsocket
+click-left = echo 'cycle pause' | socat - ~/.cache/mpvsocket
 
 
 [module/bluetooth]
