@@ -42,6 +42,11 @@ rxvt-unicode
 pavucontrol
 nemo
 network-manager-gnome
+network-manager-openvpn-gnome # optional
+
+# Polybar scripts
+socat #mpv
+jq    #mpv
 
 # Desktop core utilites
 mpv
@@ -50,8 +55,17 @@ gedit
 mousepad
 zathura
 deepin-screenshot
+xclip # needed for deepin-screenshot hack to work
+
+# Admin Tools
+baobab
+gparted
+bsdmainutils # cal, whois, mailutils... commands
+virt-manager # sudo usermod -a -G libvirt "$USER"
+qemu-utils
 
 # Useful apps
 chromium
 gimp
 telegram-desktop
+#texlive-full
