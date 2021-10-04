@@ -1,7 +1,10 @@
+#!/bin/sh
+
 alias upgrade='sudo apt-get update && \
                sudo apt upgrade && \
                sudo apt-get autoremove --purge && \
                sudo apt-get clean' # System clean upgrade
-alias history='history 1' # Print whole history
 alias diff='diff --color'
 alias ls='ls --color=tty'
+alias mutt='TERM=${TERM}-256color mutt'
+alias neomutt='TERM=${TERM}-256color neomutt'
