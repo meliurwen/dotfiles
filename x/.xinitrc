@@ -18,7 +18,7 @@ fi
 
 # NOTE: this stinks a bit, and everything works without this... BUT there are
 #       some parameters set in this collection of scripts of which at the
-#       moment I don't have the time (and will) to grasp the secuirty
+#       moment I don't have the time (and the will) to grasp the secuirty
 #       consequences of removing them.
 # run all system xinitrc shell scripts.
 if [ -d /etc/X11/Xsession.d ]; then
@@ -26,7 +26,7 @@ if [ -d /etc/X11/Xsession.d ]; then
     if [ -n "$SESSIONFILES" ]; then
         set +e
         for SESSIONFILE in $SESSIONFILES; do
-            . $SESSIONFILE
+            . "$SESSIONFILE"
         done
         set -e
     fi

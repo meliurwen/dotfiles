@@ -10,11 +10,10 @@
 
 # Set font for console tty
 # Source: https://github.com/powerline/fonts/tree/master/Terminus/PSF
-if [ "$TERM" == "linux" ]; then
+if [ "$TERM" = "linux" ]; then
     CONSOLE_FONTD=$HOME/.local/share/consolefonts
     CONSOLE_FONT=ter-powerline-v12n.psf.gz
     if [ -f "$CONSOLE_FONTD/$CONSOLE_FONT" ]; then
         setfont "$CONSOLE_FONTD/$CONSOLE_FONT"
     fi
 fi
-

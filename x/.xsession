@@ -20,4 +20,3 @@ case $session in
     xmonad     ) exec xmonad;;
     *) exec $1;;
 esac
-
