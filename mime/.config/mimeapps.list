@@ -1,15 +1,17 @@
 [Default Applications]
 inode/directory=nemo.desktop
-text/plain=org.gnome.gedit.desktop
+text/plain=mousepad.desktop
 text/markdown=typora.desktop
-text/csv=org.gnome.gedit.desktop
+text/csv=mousepad.desktop
 text/html=firefox.desktop
-text/x-python3=org.gnome.gedit.desktop
+text/x-python3=mousepad.desktop
 text/x-tex=org.gnome.latexila.desktop
 text/x-bibtex=org.gnome.latexila.desktop
 image/svg+xml=inkscape.desktop
 image/bmp=sxiv.desktop
 image/jpeg=sxiv.desktop
+image/tga=sxiv.desktop
+image/x-tga=sxiv.desktop
 image/png=sxiv.desktop
 image/gif=userapp-sxiv-CKNOX0.desktop
 audio/x-vorbis+ogg=mpv.desktop
