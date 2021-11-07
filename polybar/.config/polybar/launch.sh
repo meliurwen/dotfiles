@@ -15,7 +15,6 @@ while pgrep -u "$(id -u)" -x polybar >/dev/null; do sleep 1; done
 POLY_IFACES="$(ip link show | awk '/^[0-9]+:/ {sub(/:/,"",$2); print $2}')"
 
 for NET_IFACE in $POLY_IFACES ; do
-  echo "$NET_IFACE"
   case $NET_IFACE in
     wlp* ) POLY_WLP=$NET_IFACE ;;
     enp* ) POLY_ENP=$NET_IFACE ;;
@@ -27,8 +26,8 @@ POLY_HWMON="$HWMON_BASEDIR"/temp1_input
 
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    POLY_WLP=$POLY_WLP POLY_ENP=$POLY_ENP POLY_HWMON=$POLY_HWMON MONITOR=$m polybar main --reload -c "$HOME/.config/polybar/config" &
+    POLY_WLP=$POLY_WLP POLY_ENP=$POLY_ENP POLY_HWMON=$POLY_HWMON MONITOR=$m polybar main -c "$HOME/.config/polybar/config" &
   done
 else
-  polybar main --reload -c "$HOME/.config/polybar/config" &
+  POLY_WLP=$POLY_WLP POLY_ENP=$POLY_ENP POLY_HWMON=$POLY_HWMON MONITOR=$m polybar main -c "$HOME/.config/polybar/config" &
 fi
