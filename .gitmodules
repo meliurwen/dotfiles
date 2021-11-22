@@ -1,0 +1,3 @@
+[submodule ".dotvenv"]
+	path = .dotvenv
+	url = ../dotvenv.git
