@@ -1,0 +1,19 @@
+[plugins]
+active-plugins=['modelines', 'time', 'docinfo', 'spell', 'filebrowser']
+
+[preferences/editor]
+insert-spaces=true
+scheme='oblivion'
+tabs-size=uint32 4
+wrap-last-split-mode='word'
+wrap-mode='none'
+
+[preferences/ui]
+bottom-panel-visible=false
+show-tabs-mode='auto'
+
+[state/file-chooser]
+open-recent=false
+
+[state/file-filter]
+filter-id=1

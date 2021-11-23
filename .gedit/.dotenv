@@ -1,0 +1,5 @@
+KIND="dconf"
+SCRIPTS_LIST="iniman"
+DLIST_FILE="gedit.deny.list"
+DPATH="/org/gnome/gedit/"
+INI_DST="gedit.dconf"
