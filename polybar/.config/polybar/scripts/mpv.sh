@@ -27,7 +27,9 @@ if pgrep -u "$(id -u)" -x mpv > /dev/null; then
 
     # The "16) Connection refused" error happens at the row below
     # See: https://github.com/deterenkelt/Nadeshiko/wiki/Known-issues-for-Nadeshiko%E2%80%91mpv#----connection-refused
-    TIME=$(echo '{ "command": ["get_property", "time-pos"] }' | socat - "$MPV_SOCKET_PATH")
+    if ! TIME="$(echo '{ "command": ["get_property", "time-pos"] }' | socat - "$MPV_SOCKET_PATH" 2> "\dev\null")"; then
+        exit 1
+    fi
     if [ "$(echo "$TIME" | jq -r .error)" = "success" ]; then
         while [ $# -gt 0 ]; do
             COMMAND=$1
