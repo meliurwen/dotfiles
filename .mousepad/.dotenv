@@ -1,0 +1,5 @@
+KIND="dconf"
+SCRIPTS_LIST="iniman"
+DLIST_FILE="mousepad.deny.list"
+DPATH="/org/xfce/mousepad/"
+INI_DST="mousepad.dconf"
