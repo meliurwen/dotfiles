@@ -1,0 +1,5 @@
+KIND="dconf"
+SCRIPTS_LIST="iniman"
+DLIST_FILE="nemo.deny.list"
+DPATH="/org/nemo/"
+INI_DST="nemo.dconf"
