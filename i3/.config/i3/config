@@ -1,3 +1,4 @@
+#!/bin/i3 -c 
 # i3 config file (v4)
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
@@ -187,9 +188,9 @@ bindsym $mod+Mod1+x mark --add quickswap
 bindsym $mod+x swap container with mark quickswap; [con_mark="quickswap"] focus
 
 # Webcam 1 dropdown
-for_window [title="video0 - mpv"] floating enable
-for_window [title="video0 - mpv"] sticky enable
-for_window [title="video0 - mpv"] border none
+for_window [title="mpv-floating-window"] floating enable
+for_window [title="mpv-floating-window"] sticky enable
+for_window [title="mpv-floating-window"] border none
 
 # WebCam Toggle
 bindsym XF86WebCam exec ~/.config/i3/scripts/webcam-toggle.sh
