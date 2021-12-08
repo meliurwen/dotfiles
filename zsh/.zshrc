@@ -1,3 +1,6 @@
+#!/bin/zsh
+# ~/.zshrc
+
 ### History
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=500000000
@@ -133,6 +136,11 @@ zstyle '*' single-ignored show
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
 
+zsh_asugg_path="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+zsh_shigh_path="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[ -f "${zsh_asugg_path}" ] && . "${zsh_asugg_path}"
+[ -f "${zsh_shigh_path}" ] && . "${zsh_shigh_path}"
+unset zsh_asugg_path zsh_shigh_path
 
 ### Addons
 # Colored manpages
@@ -192,22 +200,32 @@ function zsh_git_theme() {
 }
 
 # Source: https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh
-zsh_tmp_path="$zsh_base_dir/git.zsh"
+zsh_tmp_path="$zsh_base_dir/plugins/git.zsh"
 if [ -f "$zsh_tmp_path" ]; then
-    zsh_git_theme && \
-        source "$zsh_tmp_path" || echo "An error has occurred sourcing: $zsh_tmp_path"
+    zsh_git_theme
 else
-    mkdir -p "$zsh_base_dir"
+    mkdir -p "$zsh_base_dir/plugins"
     src_url='https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib/git.zsh'
     echo "Downloading $src_url ..."
     eval "curl -s --max-time 5 -o \""$zsh_tmp_path"\" \"$src_url\"" && \
     unset src_url && \
-    zsh_git_theme && \
-    source "$zsh_tmp_path" || \
-        echo "[Warning] Failed to create the file or unrecheable URL: $src_url" && \
-        rmdir --ignore-fail-on-non-empty "$zsh_base_dir"
+    chmod +x "$zsh_tmp_path" && \
+    zsh_git_theme || \
+        echo "[Warning] Failed to create the file or unrecheable URL: $src_url"
 fi
 unfunction zsh_git_theme
+
+# Rudimentary plugin loader
+# Note: the files are loaded in alphabetical order
+# Notes about the `(xEXN)`:
+# - `.` plain files, should be comparable to a `-f` in a `find`
+# - `@` symbolic links
+# - `x`, `E`, `X` are respectively executable for owner, group and world
+# - the `N` is a nullglob applied for the current pattern
+# - See: https://zsh.sourceforge.io/Doc/Release/Expansion.html#Glob-Qualifiers
+for plugin_f in "$zsh_base_dir/plugins/"*(.zsh|.zsh-theme)(xEXN); do
+    source $plugin_f || printf "An error has occurred sourcing: %s\n" "$plugin_f"
+done
 
 # For `prompt_subst` see:
 # https://github.com/agnoster/agnoster-zsh-theme/pull/12
@@ -226,9 +244,7 @@ else
     setopt prompt_subst && \
     source "$zsh_tmp_path" || \
         echo "[Warning] Failed to create the file or unrecheable URL: $src_url" && \
-        rmdir --ignore-fail-on-non-empty "$zsh_base_dir" && \
         PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 fi
 unset zsh_tmp_path
 unset zsh_base_dir
-

@@ -1,0 +1,28 @@
+#!/bin/screen -c
+# ~/.screenrc
+# Docs: https://www.gnu.org/software/screen/manual/
+
+startup_message off
+altscreen on
+term screen-256color
+
+# Enables use of shift-PgUp and shift-PgDn
+termcapinfo xterm*|rxvt*|kterm*|Eterm* ti@:te@
+
+# Set the default size of the scrollback buffer for all windows
+# Enter in copy mode `Ctrl+A [` and navigate with: PgUp/PgDn, arrows, vim keys
+# or in some terminals also the mouse wheel
+defscrollback 10000
+
+# backtick id lifespan autorefresh cmd args...
+backtick 1 10 10 $HOME/.config/screen/bin/battery.sh --color screen
+backtick 2 10 10 $HOME/.config/screen/bin/netinfo.sh --color screen
+
+# Statusbar
+hardstatus on
+hardstatus alwayslastline
+hardstatus string '%-Lw%?%E%{= ck}%:%{= mk}%? %n%f %t %{-}%+Lw%{= dd}%=%{b}%D %d %M %c%=%{K}[%{y}Avg: %l%{K}][%1`%{K}][%2`]'
+
+# Window captions
+caption always
+caption string '%?%F%{= gk}%:%{= wk}%? %n %?%F%{= Wk}%? %h%= '

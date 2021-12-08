@@ -11,6 +11,8 @@ nload
 # Non-essential but very useful program
 zsh
 terminfo # ~/.zshrc dependency
+zsh-syntax-highlighting # ZSH Plugin
+zsh-autosuggestions # ZSH Plugin
 iwconfig
 
 haveged # Useful for some programs at boot that needs a good entropy
