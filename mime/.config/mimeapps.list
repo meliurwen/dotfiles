@@ -1,10 +1,11 @@
 [Default Applications]
 inode/directory=nemo.desktop
-text/plain=mousepad.desktop
+text/plain=org.xfce.mousepad.desktop
+text/x-log=org.xfce.mousepad.desktop
 text/markdown=typora.desktop
-text/csv=mousepad.desktop
+text/csv=org.xfce.mousepad.desktop
 text/html=firefox.desktop
-text/x-python3=mousepad.desktop
+text/x-python3=org.xfce.mousepad.desktop
 text/x-tex=org.gnome.latexila.desktop
 text/x-bibtex=org.gnome.latexila.desktop
 image/svg+xml=inkscape.desktop
@@ -44,3 +45,5 @@ image/gif=gimp.desktop;
 
 [Removed Associations]
 inode/directory=code.desktop;easytag.desktop;org.gnome.baobab.desktop
+text/plain=code.desktop
+text/x-log=code.desktop
