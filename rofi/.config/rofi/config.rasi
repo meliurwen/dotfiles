@@ -1,6 +1,6 @@
 configuration {
   modi: "drun";
 /*font: "Ubuntu Nerd Fonts 13";*/
-  theme: "themes/meli-adwaita-pink";
 }
 
+@theme "themes/meli-adwaita-pink"

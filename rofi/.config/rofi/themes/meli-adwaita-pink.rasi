@@ -2,17 +2,10 @@
   Title: Meli Adwaita Pink
   Author: Meliurwen
   Docs: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown
-  Rofi version: 1.6.1
-  Note: compatible also with rofi 1.5.4
+  Rofi version: 1.7.1
 */
 
-configuration {
-  display-drun: "";
-  show-icons:   true;
-}
-
 * {
-  transparent:         #00000000;
   background:          #282a36F0;
   foreground:          #f8f8f2;
   selected-color:      #c5457b;
@@ -38,16 +31,18 @@ configuration {
 }
 
 #mainbox {
-  background-color: @transparent;
+  background-color: transparent;
   children:         [inputbar, message, listview];
 }
 
 #inputbar {
   background-color: inherit;
-  children:         [prompt, entry];
+  children:         [textbox-prompt-colon, entry];
 }
 
-#prompt {
+#textbox-prompt-colon {
+  expand:           false;
+  str:              "";
   background-color: inherit;
   text-color:       @foreground;
   padding:          0px 2px 0px 2px;
@@ -92,10 +87,13 @@ configuration {
 }
 
 #element-icon {
-  size:25px;
+  background-color: transparent;
+  size:             25px;
 }
 
 #element-text {
+  background-color: transparent;
+  text-color:       @foreground;
 }
 
 #element normal.normal {
@@ -151,4 +149,3 @@ configuration {
   background-color: inherit;
   text-color:       @foreground;
 }
-
