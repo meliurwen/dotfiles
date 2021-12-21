@@ -8,12 +8,15 @@ show-line-endings=false
 show-line-numbers=true
 show-right-margin=true
 show-whitespace=false
-tab-width=4
+smart-backspace=false
+tab-width=uint32 4
 
 [preferences/window]
 always-show-tabs=false
+client-side-decorations=false
 cycle-tabs=false
 path-in-title=true
 remember-size=true
+remember-state=false
 statusbar-visible=true
 toolbar-visible=false
