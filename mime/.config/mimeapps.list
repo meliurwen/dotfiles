@@ -2,7 +2,7 @@
 inode/directory=nemo.desktop
 text/plain=org.xfce.mousepad.desktop
 text/x-log=org.xfce.mousepad.desktop
-text/markdown=typora.desktop
+text/markdown=org.xfce.mousepad.desktop
 text/csv=org.xfce.mousepad.desktop
 text/html=firefox.desktop
 text/x-python3=org.xfce.mousepad.desktop
@@ -26,12 +26,20 @@ video/mpeg=mpv.desktop
 video/mp4=mpv.desktop
 video/x-matroska=mpv.desktop
 video/x-flv=mpv.desktop
+video/x-msvideo=mpv.desktop
 video/avi=mpv.desktop
 video/divx=mpv.desktop
 video/mp2t=mpv.desktop
 video/webm=mpv.desktop
 application/x-remmina=org.remmina.Remmina.desktop
-application/zip=org.gnome.FileRoller.desktop
+application/zip=engrampa.desktop
+application/x-compressed-tar=engrampa.desktop
+application/x-xz-compressed-tar=engrampa.desktop
+application/x-7z-compressed=engrampa.desktop
+application/x-cd-image=engrampa.desktop
+application/gzip=engrampa.desktop
+application/x-bzip=engrampa.desktop
+application/vnd.debian.binary-package=gdebi.desktop
 application/pdf=org.pwmt.zathura-pdf-poppler.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop
@@ -42,6 +50,9 @@ x-scheme-handler/remmina=org.remmina.Remmina.desktop
 
 [Added Associations]
 image/gif=gimp.desktop;
+application/vnd.debian.binary-package=engrampa.desktop
+application/x-cd-image=gnome-disk-image-mounter.desktop;
+application/x-raw-disk-image=gnome-disk-image-mounter.desktop;
 
 [Removed Associations]
 inode/directory=code.desktop;easytag.desktop;org.gnome.baobab.desktop
