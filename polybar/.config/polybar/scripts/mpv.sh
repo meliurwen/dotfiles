@@ -27,19 +27,19 @@ if pgrep -u "$(id -u)" -x mpv > /dev/null; then
 
     # The "16) Connection refused" error happens at the row below
     # See: https://github.com/deterenkelt/Nadeshiko/wiki/Known-issues-for-Nadeshiko%E2%80%91mpv#----connection-refused
-    if ! TIME="$(echo '{ "command": ["get_property", "time-pos"] }' | socat - "$MPV_SOCKET_PATH" 2> /dev/null)"; then
+    if ! TIME="$(printf '{ "command": ["get_property", "time-pos"] }\n' | socat - "$MPV_SOCKET_PATH" 2> /dev/null)"; then
         exit 1
     fi
-    if [ "$(echo "$TIME" | jq -r .error)" = "success" ]; then
+    if [ "$(printf "%s" "$TIME" | jq -r .error)" = "success" ]; then
         while [ $# -gt 0 ]; do
             COMMAND=$1
             VALID_COMMAND=true
             case $COMMAND in
                 "time-pos" | "time-remaining" | "duration" | "media-title" | "playlist-pos" | "playlist-pos-1" | "playlist-count")
-                    API_OUTPUT=$(echo "{ \"command\": [\"get_property\", \"$COMMAND\"] }" | socat - "$MPV_SOCKET_PATH")
+                    API_OUTPUT=$(printf '{ "command": ["get_property", "%s"] }\n' "$COMMAND" | socat - "$MPV_SOCKET_PATH")
                     ;;
                 "core-idle" | "play-pause-btn")
-                    API_OUTPUT=$(echo '{ "command": ["get_property", "core-idle"] }' | socat - "$MPV_SOCKET_PATH")
+                    API_OUTPUT=$(printf '{ "command": ["get_property", "core-idle"] }\n' | socat - "$MPV_SOCKET_PATH")
                     ;;
                 *)
                     VALID_COMMAND=false
@@ -47,21 +47,21 @@ if pgrep -u "$(id -u)" -x mpv > /dev/null; then
             esac
 
             if $VALID_COMMAND; then
-                if [ "$(echo "$API_OUTPUT" | jq -r .error)" = "success" ]; then
+                if [ "$(printf "%s" "$API_OUTPUT" | jq -r .error)" = "success" ]; then
                     case $COMMAND in
                         "time-pos" | "time-remaining" | "duration")
-                            API_OUTPUT=$(echo "$API_OUTPUT" | jq -r .data | cut -d'.' -f 1)
+                            API_OUTPUT=$(printf "%s" "$API_OUTPUT" | jq -r .data | cut -d'.' -f 1)
                             time_to_human
                             ;;
                         "media-title")
-                            API_OUTPUT=$(echo "$API_OUTPUT" | jq -r .data | cut -c 1-35)
+                            API_OUTPUT=$(printf "%s" "$API_OUTPUT" | jq -r .data | cut -c 1-35)
                             ;;
                         "playlist-pos" | "playlist-pos-1" | "playlist-count")
-                            API_OUTPUT=$(echo "$API_OUTPUT" | jq -r .data)
+                            API_OUTPUT=$(printf "%s" "$API_OUTPUT" | jq -r .data)
                             ;;
                         "core-idle" | "play-pause-btn")
                             shift;
-                            if [ "$(echo "$API_OUTPUT" | jq -r .data)" = "false" ]; then
+                            if [ "$(printf "%s" "$API_OUTPUT" | jq -r .data)" = "false" ]; then
                                 API_OUTPUT=$1 #Play icon
                                 shift;
                             else
