@@ -19,11 +19,18 @@ URxvt.perl-ext-common:          default,clipboard,url-select,keyboard-select,res
 Xft.dpi:                        109
 URxvt*termName:                 rxvt-unicode
 URxvt.depth:                    0
-URxvt.iso14755:                 false
-URxvt.iso14755_52:              false
+URxvt.iso14755:                 False
+URxvt.iso14755_52:              False
 URxvt*geometry:                 64x23
-URxvt.scrollBar:                false
-URxvt*loginShell:               true
+URxvt.scrollBar:                False
+URxvt*loginShell:               True
+
+! autoscroll
+! - Use `mouse wheel` or `Shift+Page Up` to scroll
+! - Press any other keyboard key to autoscroll back to the bottom
+URxvt*scrollTtyOutput:          False
+URxvt*scrollWithBuffer:         True
+URxvt*scrollTtyKeypress:        True
 
 ! extensions settings
 ! resize-font
@@ -34,7 +41,7 @@ URxvt.keysym.C-question:  resize-font:show
 ! clipboard
 URxvt.keysym.Shift-Control-C:  perl:clipboard:copy
 URxvt.keysym.Shift-Control-V:  perl:clipboard:paste
-URxvt.clipboard.autocopy:      true
+URxvt.clipboard.autocopy:      True
 
 ! Dracula Xresources palette
 *.foreground:  #F8F8F2
