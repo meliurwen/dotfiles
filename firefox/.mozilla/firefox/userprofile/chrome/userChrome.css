@@ -1,5 +1,95 @@
 /*AGENT_SHEET*/
 
+/*
+* Title: TAB BAR
+*/
+
+/* #### Set height of the tab bar #### */
+
+/* Set the tabs height */
+:root {
+  --tab-min-height: 16px !important;
+}
+
+/* Set the tab font size */
+#tabbrowser-tabs .tab-text{
+  font-size:9pt !important;
+}
+
+/* Unset a fixed height to the tab container */
+.tab-label-container{
+  height: unset !important;
+}
+
+/* Set size of the private browsing icon at the right end of the tab bar */
+.accessibility-indicator, .private-browsing-indicator {
+  width: var(--tab-min-height) !important;
+  height: var(--tab-min-height) !important;
+}
+
+/* Close button */
+.tab-close-button {
+  width: var(--tab-min-height) !important;
+  height: var(--tab-min-height) !important;
+}
+
+/*
+* Remove padding (border) from the arrows of the tab bar
+* WARNING: at the moment it does not work because "::part()" is not supported
+*          in userChrome.css.
+* See: https://bugzilla.mozilla.org/show_bug.cgi?id=1575507
+*/
+#tabbrowser-arrowscrollbox::part(scrollbutton-up),
+#tabbrowser-arrowscrollbox::part(scrollbutton-down) {
+  border: 0px solid transparent !important;
+  border-radius: calc(var(--tab-border-radius) + 0px) !important;
+}
+
+/* #### Disable round borders in the tab bar #### */
+
+/* Remove round borders */
+:root {
+  --tab-border-radius: 0px !important;
+}
+
+/* #### Remove padding in the tab bar #### */
+
+/* Remove padding */
+:root {
+  --inline-tab-padding: 0px !important;
+  --tab-shadow-max-size: 0px !important;
+  --tab-block-margin: 0px !important;
+}
+
+/* Remove padding between tabs */
+.tabbrowser-tab {
+  padding-inline: 0px !important;
+}
+
+/* Set a right and left margin to the icons of the tab bar */
+.tab-throbber:not([pinned]),
+.tab-icon-pending:not([pinned]),
+.tab-icon-image:not([pinned]),
+.tab-sharing-icon-overlay:not([pinned]),
+.tab-icon-overlay:not([pinned]) {
+  margin-inline-end: 2px !important;
+  margin-inline-start: 2px !important;
+}
+
+/* Tab text fading when is longer than the max limit */
+.tabbrowser-tab {
+  --tab-label-mask-size: 1.5em !important;
+}
+
+/* Close button */
+.tab-close-button {
+  padding: 3px !important;
+}
+
+/*
+* Title: NAV BAR
+*/
+
 #urlbar,
 #navigator-toolbox #searchbar {
     border: none !important;
@@ -33,7 +123,6 @@ vbox {
 }
 
 /* All the states in which the URL bar is visible */
-
 vbox:hover~#nav-bar,
 toolbox:focus-within>#nav-bar,
 #nav-bar:hover,
@@ -43,8 +132,11 @@ toolbox:focus-within>#nav-bar,
     pointer-events: all;
 }
 
-/* Hide undesirable default context menu items */
-/* Source: https://github.com/stonecrusher/simpleMenuWizard */
+/*
+* Title: MENU ITEMS
+* Desc:  Hide undesirable default context menu items 
+* Ref:   https://github.com/stonecrusher/simpleMenuWizard
+*/
 
 #context-sendaudio,    /* Email Audio */
 #context-sendvideo,    /* Email Video */
