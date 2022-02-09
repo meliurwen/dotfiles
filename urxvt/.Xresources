@@ -14,11 +14,10 @@ URxvt*italicFont:               xft:ProggyCleanTTSZ Nerd Font Mono:italic:size=1
 URxvt*boldItalicFont:           xft:ProggyCleanTTSZ Nerd Font Mono:regular:size=10
 
 ! perl extensions
-URxvt.perl-ext-common:          default,clipboard,url-select,keyboard-select,resize-font
+URxvt.perl-ext-common:          default,resize-font
 
 Xft.dpi:                        109
 URxvt*termName:                 rxvt-unicode
-URxvt.depth:                    0
 URxvt.iso14755:                 False
 URxvt.iso14755_52:              False
 URxvt*geometry:                 64x23
