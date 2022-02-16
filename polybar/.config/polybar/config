@@ -264,7 +264,7 @@ interval = 1
 format =  <label>
 label = %output%
 
-click-left = printf "%s\n" "cycle pause" | socat - ~/.cache/mpvsocket
+click-left = printf "%s\n" "cycle pause" | socat - $XDG_RUNTIME_DIR/mpv/main.sock
 
 
 [module/bluetooth]

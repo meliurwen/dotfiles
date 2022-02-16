@@ -3,9 +3,9 @@
 # Note: In order to use this script you have to tell to mpv to enable a socket.
 #       Two ways are possible to achieve this:
 #       1) Use the argument --input-ipc-server when you launch it. For example:
-#          `mpv --input-ipc-server=~/.cache/mpvsocket Your.Video.File.mkv`
+#          `mpv --input-ipc-server=mpvsocket Your.Video.File.mkv`
 #       2) Add the line below when in the `mpv.conf` file:
-#          `input-ipc-server=~/.cache/mpvsocket`
+#          `input-ipc-server=mpvsocket`
 
 time_to_human(){
     if [ "$API_OUTPUT" -gt 3600 ]; then
@@ -19,7 +19,7 @@ time_to_human(){
     fi
 }
 
-MPV_SOCKET_PATH="$HOME/.cache/mpvsocket"
+MPV_SOCKET_PATH="${XDG_RUNTIME_DIR:-/tmp/$(id -u)-runtime}/mpv/main.sock"
 
 OUTPUT=""
 

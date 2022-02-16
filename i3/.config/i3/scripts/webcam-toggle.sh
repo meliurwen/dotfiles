@@ -2,7 +2,7 @@
 
 pkill -f /dev/video || \
     mpv --title="mpv-floating-window" \
-        --input-ipc-server="$HOME/.cache/mpvsocket-webcam" \
+        --no-config \
         --no-osc \
         --no-input-default-bindings \
         --input-conf=/dev/null \
