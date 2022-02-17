@@ -3,17 +3,18 @@
 
 case $1 in
     "")
-        if [ "$(bluetoothctl show | grep "Powered: yes" | wc -c)" -eq 0 ]; then
-            printf "%s\n" "%{F#66ffffff}"
-        elif [ "$(printf "%s\n" info | bluetoothctl | grep 'Device' | wc -c)" -eq 0 ]; then 
-            printf "%s\n" ""
-            printf "%s\n" "%{F#2193ff}"
+        bt_color=""
+        if bluetoothctl show | grep -q "Powered: no"; then
+            bt_color="%{F#66ffffff}"
+        elif bluetoothctl info | grep -q "Device"; then
+            bt_color="%{F#2193ff}"
         else
-            printf "%s\n" "%{F#2193ff}"
+            :
         fi
+        printf "%s%s\n" "$bt_color" ""
     ;;
     "--toggle")
-        if [ "$(bluetoothctl show | grep "Powered: yes" | wc -c)" -eq 0 ]; then
+        if bluetoothctl show | grep -q "Powered: no"; then
             bluetoothctl power on
         else
             bluetoothctl power off
