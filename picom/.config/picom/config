@@ -7,6 +7,10 @@ glx-no-stencil = true;
 # Good performances gain, but could be buggy with intel cards
 #glx-no-rebind-pixmap = true;
 
+# Degrades performances but fixes the artifacts described in the issue below.
+# See: https://github.com/yshui/picom/issues/300
+use-damage = false;
+
 ## Shadow
 
 shadow = true;
