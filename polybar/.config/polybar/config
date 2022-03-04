@@ -12,7 +12,6 @@ red = #bd2c40
 pink = #9e1553
 pink-dark = #3f3c3f
 
-
 [global/wm]
 margin-bottom = 0
 margin-top = 0
@@ -77,22 +76,7 @@ dpi-y = 96
 
 enable-ipc = false
 
-click-left = 
-click-middle = 
-click-right =
-scroll-up =
-scroll-down =
-double-click-left =
-double-click-middle =
-double-click-right =
-
-cursor-click = 
-cursor-scroll = 
-
 [settings]
-throttle-output = 5
-throttle-output-for = 10
-
 screenchange-reload = false
 
 compositing-background = source
@@ -102,8 +86,6 @@ compositing-underline = over
 compositing-border = over
 
 pseudo-transparency = false
-
-
 
 [module/date]
 type = internal/date
@@ -182,7 +164,6 @@ animation-packetloss-1-foreground = ${color.black}
 ; Framerate in milliseconds
 animation-packetloss-framerate = 500
 
-
 [module/temperature]
 type = internal/temperature
 interval = 5
@@ -212,11 +193,6 @@ index-sort = true
 enable-click = true
 enable-scroll = true
 
-icon-0 = code;♚
-icon-1 = office;♛
-icon-2 = graphics;♜
-icon-3 = mail;♝
-icon-4 = web;♞
 icon-default = ""
 
 format = <label-state> <label-mode>
@@ -255,7 +231,6 @@ interval = 1
 label = %output%
 format = <label>
 
-
 [module/mpv]
 type = custom/script
 exec = ~/.config/polybar/scripts/mpv.sh play-pause-btn   " " media-title " " [ playlist-pos-1 / playlist-count ] " " time-pos - duration
@@ -265,7 +240,6 @@ format =  <label>
 label = %output%
 
 click-left = printf "%s\n" "cycle pause" | socat - $XDG_RUNTIME_DIR/mpv/main.sock
-
 
 [module/bluetooth]
 type = custom/script
