@@ -1,6 +1,17 @@
 #!/bin/sh
 # Usage: ./bluetooth.sh [--toggle]
 
+set -e
+
+# If the folder doesn't exist (kernel module not loaded) or it's empty, exit
+if [ ! -d /sys/class/bluetooth ]; then
+    exit 1
+elif [ -z "$(ls -A /sys/class/bluetooth)" ]; then
+    exit 1
+else
+    :
+fi
+
 case $1 in
     "")
         bt_color=""
