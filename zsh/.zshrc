@@ -1,5 +1,8 @@
 #!/bin/zsh
 # ~/.zshrc
+# See:
+# - https://zsh.sourceforge.io/Doc/Release/
+# - https://stevenvanbael.com/profiling-zsh-startup
 
 ### History
 HISTFILE="$HOME/.zsh_history"
@@ -188,32 +191,6 @@ function zsh_stats() {
 # This is ugly as hell, but is efficient and reliable
 # TODO: find a clean, reliable and efficient solution to this mess
 zsh_base_dir="$HOME/.config/zsh"
-# Git
-# git theming default: Variables for theming the git info prompt
-function zsh_git_theme() {
-    ZSH_THEME_GIT_PROMPT_PREFIX="git:(" # At the very beginning of the prompt
-    ZSH_THEME_GIT_PROMPT_SUFFIX=")"     # At the very end of the prompt
-    ZSH_THEME_GIT_PROMPT_DIRTY="*"      # Text to display if the branch is dirty
-    ZSH_THEME_GIT_PROMPT_CLEAN=""       # Text to display if the branch is clean
-    ZSH_THEME_RUBY_PROMPT_PREFIX="("
-    ZSH_THEME_RUBY_PROMPT_SUFFIX=")"
-}
-
-# Source: https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh
-zsh_tmp_path="$zsh_base_dir/plugins/git.zsh"
-if [ -f "$zsh_tmp_path" ]; then
-    zsh_git_theme
-else
-    mkdir -p "$zsh_base_dir/plugins"
-    src_url='https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/lib/git.zsh'
-    echo "Downloading $src_url ..."
-    eval "curl -s --max-time 5 -o \""$zsh_tmp_path"\" \"$src_url\"" && \
-    unset src_url && \
-    chmod +x "$zsh_tmp_path" && \
-    zsh_git_theme || \
-        echo "[Warning] Failed to create the file or unrecheable URL: $src_url"
-fi
-unfunction zsh_git_theme
 
 # Rudimentary plugin loader
 # Note: the files are loaded in alphabetical order
@@ -227,24 +204,6 @@ for plugin_f in "$zsh_base_dir/plugins/"*(.zsh|.zsh-theme)(xEXN); do
     source $plugin_f || printf "An error has occurred sourcing: %s\n" "$plugin_f"
 done
 
-# For `prompt_subst` see:
-# https://github.com/agnoster/agnoster-zsh-theme/pull/12
-# Fork used:
-# https://github.com/ohmyzsh/ohmyzsh/blob/master/themes/agnoster.zsh-theme
-zsh_tmp_path="$zsh_base_dir/agnoster.zsh-theme"
-if [ -f "$zsh_tmp_path" ]; then
-    setopt prompt_subst
-    source "$zsh_tmp_path"
-else
-    mkdir -p "$zsh_base_dir"
-    src_url='https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/themes/agnoster.zsh-theme'
-    echo "Downloading $src_url ..."
-    eval "curl -s --max-time 5 -o \""$zsh_tmp_path"\" \"$src_url\"" && \
-    unset src_url && \
-    setopt prompt_subst && \
-    source "$zsh_tmp_path" || \
-        echo "[Warning] Failed to create the file or unrecheable URL: $src_url" && \
-        PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-fi
-unset zsh_tmp_path
+#PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+
 unset zsh_base_dir
