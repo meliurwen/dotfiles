@@ -3,6 +3,7 @@
 # See:
 # - https://zsh.sourceforge.io/Doc/Release/
 # - https://stevenvanbael.com/profiling-zsh-startup
+# - https://zsh.sourceforge.io/Doc/Release/Options.html
 
 ### History
 HISTFILE="$HOME/.zsh_history"
@@ -85,9 +86,7 @@ fi
 autoload -U compinit
 
 # Save the location of the current completion dump file.
-ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
-compinit -u -C -d "${ZSH_COMPDUMP}"
-
+compinit -u -C -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${ZSH_VERSION}"
 
 ### Completion
 zmodload -i zsh/complist
@@ -113,14 +112,14 @@ zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USERNAME -o pid,user,comm -w -w"
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
 
 # disable named-directories autocompletion
 zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 
 # Use caching so that commands like apt and dpkg complete are useable
 zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' cache-path "$HOME/.cache/zsh"
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 
 # Don't complete uninteresting users
 zstyle ':completion:*:*:*:users' ignored-patterns \
@@ -139,12 +138,6 @@ zstyle '*' single-ignored show
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
 
-zsh_asugg_path="/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-zsh_shigh_path="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-[ -f "${zsh_asugg_path}" ] && . "${zsh_asugg_path}"
-[ -f "${zsh_shigh_path}" ] && . "${zsh_shigh_path}"
-unset zsh_asugg_path zsh_shigh_path
-
 ### Addons
 # Colored manpages
 man() {
@@ -161,23 +154,17 @@ man() {
 
 # Colored `ls` command and colored dir and files suggestions
 autoload -U colors && colors
-
-if [[ "$DISABLE_LS_COLORS" != "true" ]]; then
-    # For GNU ls, we use the default ls color theme.
-    # They can later be overwritten by themes.
-    if [[ -z "$LS_COLORS" ]]; then
-        (( $+commands[dircolors] )) && eval "$(dircolors -b)"
-    fi
-
-    # Take advantage of $LS_COLORS for completion as well.
-    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# For GNU ls, we use the default ls color theme.
+if [[ -z "$LS_COLORS" ]]; then
+    (( $+commands[dircolors] )) && eval "$(dircolors -b)"
 fi
+# Take advantage of $LS_COLORS for completion as well.
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # TODO: check what `multios` really does
 # See: http://zsh.sourceforge.net/Doc/Release/Options.html
 #setopt auto_cd
-setopt multios
-
+#setopt multios
 
 ### Custom zsh-specific Functions
 function zsh_stats() {
@@ -186,11 +173,10 @@ function zsh_stats() {
         grep -v "./" | sort -nr | head -20 | column -c3 -s " " -t | nl
 }
 
-
 ## Theme
 # This is ugly as hell, but is efficient and reliable
 # TODO: find a clean, reliable and efficient solution to this mess
-zsh_base_dir="$HOME/.config/zsh"
+zsh_base_dir="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 # Rudimentary plugin loader
 # Note: the files are loaded in alphabetical order
