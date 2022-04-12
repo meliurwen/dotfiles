@@ -24,7 +24,7 @@ prompt_segment() {
 
   OLD_SEP=$1
   OLD_BG=$2
-  PROMPT_LINE="$PROMPT_LINE%{%K{$2}$separator%}%{%F{$3}%}$4"
+  PROMPT_LINE="$PROMPT_LINE%{%K{$2}%}$separator%{%F{$3}%}$4"
   unset separator
 }
 
