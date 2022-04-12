@@ -37,7 +37,7 @@ prompt_context() {
   if [ -z ${SSH_CLIENT+x} ]; then
     PROMPT_LINE="$PROMPT_LINE %n "
   else
-    PROMPT_LINE="$PROMPT_LINE %n@%m "
+    PROMPT_LINE="$PROMPT_LINE %n%{%F{blue}%}@%{%F{cyan}%}%m "
   fi
 }
 
