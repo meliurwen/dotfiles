@@ -68,6 +68,14 @@ Install all the extensions listed into a file (any line that starts with `#` wil
 cat codium-extensions.txt | grep -v '^#' | xargs -L1 codium --install-extension
 ```
 
+Order alphabetically and format `settings.json`:
+
+> **Note:** Unfortunately there is no in-place feature available a the moment
+
+```sh
+jq --sort-keys . settings.json > settings.json.new && mv settings.json.new settings.json
+```
+
 ## Stow
 
 ```sh
