@@ -13,6 +13,7 @@
   "python.languageServer": "Default",
   "redhat.telemetry.enabled": false,
   "rest-client.enableTelemetry": false,
+  "telemetry.telemetryLevel": "off",
   "terminal.integrated.fontFamily": "'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback','PowerlineSymbols'",
   "terminal.integrated.fontSize": 12,
   "update.mode": "manual",

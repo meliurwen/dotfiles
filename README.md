@@ -73,7 +73,17 @@ Order alphabetically and format `settings.json`:
 > **Note:** Unfortunately there is no in-place feature available a the moment
 
 ```sh
-jq --sort-keys . settings.json > settings.json.new && mv settings.json.new settings.json
+VSC_D="vscode/.config/Code/User/" sh -c '\
+    jq --sort-keys . "${VSC_D}settings.json" > "${VSC_D}settings.json.new" && \
+        mv "${VSC_D}settings.json.new" "${VSC_D}settings.json"'
+```
+
+Order alphabetically and format `argv.json`:
+
+```sh
+VSC_D="vscode/.vscode/" sh -c '\
+    jq --sort-keys . "${VSC_D}argv.json" > "${VSC_D}argv.json.new" && \
+        mv "${VSC_D}argv.json.new" "${VSC_D}argv.json"'
 ```
 
 ## Stow
