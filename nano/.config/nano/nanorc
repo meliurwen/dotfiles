@@ -1,0 +1,32 @@
+#!/bin/nano -f
+
+# Docs: man nanorc
+
+#set linenumbers
+set guidestripe 80
+#set indicator # Scrollbar
+set minibar
+set constantshow
+set locking
+set stateflags
+set nonewlines
+set tabsize 4
+#set tabstospaces
+
+# Colors
+set titlecolor black,blue
+set numbercolor blue,black
+set stripecolor ,white
+set scrollercolor blue,black
+set selectedcolor black,magenta
+set spotlightcolor black,magenta
+set statuscolor black,green
+set errorcolor bold,white,red
+set promptcolor black,yellow
+set minicolor black,blue
+set keycolor black,cyan
+set functioncolor italic,cyan
+
+# Syntax coloring
+include "/usr/share/nano/*.nanorc"
+include "/usr/share/nano/extra/*.nanorc"
