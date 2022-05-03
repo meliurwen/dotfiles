@@ -16,7 +16,7 @@ set tabsize 4
 # Colors
 set titlecolor black,blue
 set numbercolor blue,black
-set stripecolor ,white
+set stripecolor black,white
 set scrollercolor blue,black
 set selectedcolor black,magenta
 set spotlightcolor black,magenta
