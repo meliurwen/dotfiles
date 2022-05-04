@@ -138,7 +138,6 @@ zstyle '*' single-ignored show
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
 
-### Addons
 # Colored manpages
 man() {
     env \
@@ -161,23 +160,6 @@ fi
 # Take advantage of $LS_COLORS for completion as well.
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
-# TODO: check what `multios` really does
-# See: http://zsh.sourceforge.net/Doc/Release/Options.html
-#setopt auto_cd
-#setopt multios
-
-### Custom zsh-specific Functions
-function zsh_stats() {
-    fc -l 1 | \
-        awk '{ CMD[$2]++; count++; } END { for (a in CMD) print CMD[a] " " CMD[a]*100/count "% " a }' | \
-        grep -v "./" | sort -nr | head -20 | column -c3 -s " " -t | nl
-}
-
-## Theme
-# This is ugly as hell, but is efficient and reliable
-# TODO: find a clean, reliable and efficient solution to this mess
-zsh_base_dir="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-
 # Rudimentary plugin loader
 # Note: the files are loaded in alphabetical order
 # Notes about the `(xEXN)`:
@@ -186,10 +168,8 @@ zsh_base_dir="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 # - `x`, `E`, `X` are respectively executable for owner, group and world
 # - the `N` is a nullglob applied for the current pattern
 # - See: https://zsh.sourceforge.io/Doc/Release/Expansion.html#Glob-Qualifiers
-for plugin_f in "$zsh_base_dir/plugins/"*(.zsh|.zsh-theme)(xEXN); do
+for plugin_f in "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/"*(.zsh|.zsh-theme)(xEXN); do
     source $plugin_f || printf "An error has occurred sourcing: %s\n" "$plugin_f"
 done
 
 #PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-
-unset zsh_base_dir

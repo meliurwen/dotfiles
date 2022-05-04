@@ -5,4 +5,3 @@ if [ -f "$HOME/.profile" ]; then
         . $HOME/.profile
     emulate zsh
 fi
-
