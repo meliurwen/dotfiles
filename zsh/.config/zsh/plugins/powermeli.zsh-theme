@@ -41,46 +41,45 @@ prompt_context() {
   fi
 }
 
+# TODO: remove `grep` commands
 prompt_git() {
-  if [ "$ZSH_THEME_GIT_MODE" = "disabled" ]; then
+  if ! command -pv git > /dev/null 2>&1; then
     return
   fi
-  if ! type git > /dev/null 2>&1; then
-    return
-  fi
-  PL_BRANCH_CHAR="" # $'\ue0a0'
 
-  if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = "true" ]; then
-    repo_path=$(git rev-parse --git-dir 2> /dev/null)
+  repo_path="$(git rev-parse --git-dir 2> /dev/null)"
+  if [ -n "$repo_path" ]; then
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
-    if [ -n "$(git status --porcelain --ignore-submodules=dirty 2> /dev/null | tail -n 1)" ]; then
+    git_status="$(git status --porcelain --ignore-submodules=dirty 2> /dev/null)"
+    git_str=""
+    if [ -n "$git_status" ]; then
       prompt_segment "$SEGMENT_SEPARATOR" yellow black
+      if [ -n "$(printf "%s" "$git_status" | grep -e "^[MADRCU? ][MADRCU?]")" ]; then
+        git_str="$git_str±" # Unstaged
+      fi
+      if [ -n "$(printf "%s" "$git_status" | grep -e "^[MADRCU]")" ]; then
+        git_str="$git_str✚" # Staged
+      fi
     else
       prompt_segment "$SEGMENT_SEPARATOR" green black
     fi
 
     if [ -e "${repo_path}/BISECT_LOG" ]; then
-      mode=" <B>"
+      git_str="$git_str <B>"
     elif [ -e "${repo_path}/MERGE_HEAD" ]; then
-      mode=" >M<"
+      git_str="$git_str >M<"
     elif [ -e "${repo_path}/rebase" ] || [ -e "${repo_path}/rebase-apply" ] || [ -e "${repo_path}/rebase-merge" ] || [ -e "${repo_path}/../.dotest" ]; then
-      mode=" >R>"
+      git_str="$git_str >R>"
     fi
 
-    autoload -Uz vcs_info
+    [ -n "$git_str" ] && git_str="$git_str "
 
-    zstyle ':vcs_info:*' enable git
-    zstyle ':vcs_info:*' get-revision true
-    zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' stagedstr '✚'
-    zstyle ':vcs_info:*' unstagedstr '±'
-    zstyle ':vcs_info:*' formats ' %u%c'
-    zstyle ':vcs_info:*' actionformats ' %u%c'
-    vcs_info
-    PROMPT_LINE="$PROMPT_LINE${${ref:gs/%/%%}/refs\/heads\// $PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode} "
-    unset repo_path ref mode
+    branch_char="" # $'\ue0a0'
+    PROMPT_LINE="$PROMPT_LINE${${ref:gs/%/%%}/refs\/heads\// $branch_char } ${git_str}"
+
+    unset ref git_status git_str branch_char
   fi
-  unset PL_BRANCH_CHAR
+  unset repo_path
 }
 
 prompt_virtualenv() {
@@ -106,7 +105,7 @@ build_prompt() {
   prompt_virtualenv
   prompt_context
   prompt_segment "$SEGMENT_SEPARATOR" blue black " %~ "
-  prompt_git
+  [ "$ZSH_THEME_GIT_MODE" = "disabled" ] || prompt_git
   PROMPT_LINE="$PROMPT_LINE%{%k%F{${OLD_BG:-blue}}%}$SEGMENT_SEPARATOR%{%f%}"
   unset OLD_BG OLD_SEP
   printf "%s%s " "%{%f%b%k%}" "$PROMPT_LINE"
