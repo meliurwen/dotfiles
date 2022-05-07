@@ -41,7 +41,6 @@ prompt_context() {
   fi
 }
 
-# TODO: remove `grep` commands
 prompt_git() {
   if ! command -pv git > /dev/null 2>&1; then
     return
@@ -50,16 +49,29 @@ prompt_git() {
   repo_path="$(git rev-parse --git-dir 2> /dev/null)"
   if [ -n "$repo_path" ]; then
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
-    git_status="$(git status --porcelain --ignore-submodules=dirty 2> /dev/null)"
+    git_status="$(git status --porcelain=v1 --ignore-submodules=dirty 2> /dev/null)"
     git_str=""
     if [ -n "$git_status" ]; then
       prompt_segment "$SEGMENT_SEPARATOR" yellow black
-      if [ -n "$(printf "%s" "$git_status" | grep -e "^[MADRCU? ][MADRCU?]")" ]; then
-        git_str="$git_str±" # Unstaged
-      fi
-      if [ -n "$(printf "%s" "$git_status" | grep -e "^[MADRCU]")" ]; then
-        git_str="$git_str✚" # Staged
-      fi
+      # Using `emulate` here is ugly as hell, but necessary to not get syntax
+      # error from `sh/dash`. Hope it doesn't costs too much in performances.
+      [ -z ${ZSH_VERSION+x} ] && emulate zsh -c 'git_status=( ${(f)"${git_Status}"} )'
+      OLDIFS="$IFS"
+      IFS="
+"
+      for line in $git_status; do
+        git_states="${line%%"${line##[MTADRCU?! ][MTADRCU?! ]}"}"
+        if [ -z ${git_staged+x} ] && [ -n "${git_states##["?""!"" "][MTADRCU?! ]}" ]; then
+          git_staged="✚" # Staged
+        fi
+        if [ -z ${git_dirty+x} ] && [ -n "${git_states##[MTADRCU?! ]["!"" "]}" ]; then
+          git_dirty="±" # Unstaged (Dirty tree)
+        fi
+        [ -z ${git_staged+x} ] || [ -z ${git_dirty+x} ] || break
+      done
+      IFS="$OLDIFS"
+      git_str="$git_dirty$git_staged"
+      unset git_states git_staged git_dirty OLDIFS
     else
       prompt_segment "$SEGMENT_SEPARATOR" green black
     fi
@@ -110,7 +122,7 @@ build_prompt() {
   unset OLD_BG OLD_SEP
   printf "%s%s " "%{%f%b%k%}" "$PROMPT_LINE"
   unset PROMPT_LINE
-  unset -f prompt_segment prompt_status prompt_virtualenv prompt_context prompt_git
+  unset -f prompt_segment prompt_status prompt_virtualenv prompt_context prompt_git get_apid
 }
 
 setopt prompt_subst
