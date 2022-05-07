@@ -122,7 +122,7 @@ build_prompt() {
   unset OLD_BG OLD_SEP
   printf "%s%s " "%{%f%b%k%}" "$PROMPT_LINE"
   unset PROMPT_LINE
-  unset -f prompt_segment prompt_status prompt_virtualenv prompt_context prompt_git get_apid
+  unset -f prompt_segment prompt_status prompt_virtualenv prompt_context prompt_git
 }
 
 setopt prompt_subst
