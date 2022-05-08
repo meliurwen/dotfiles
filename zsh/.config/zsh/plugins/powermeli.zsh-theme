@@ -53,9 +53,9 @@ prompt_git() {
     git_str=""
     if [ -n "$git_status" ]; then
       prompt_segment "$SEGMENT_SEPARATOR" yellow black
-      # Using `emulate` here is ugly as hell, but necessary to not get syntax
-      # error from `sh/dash`. Hope it doesn't costs too much in performances.
-      [ -z ${ZSH_VERSION+x} ] && emulate zsh -c 'git_status=( ${(f)"${git_Status}"} )'
+      # If sourced or executed by zsh overwrite with an associative array
+      # https://zsh.sourceforge.io/Doc/Release/Parameters.html#Array-Parameters
+      [ -z ${ZSH_VERSION+x} ] && set -A git_status ${(f)"${git_status}"}
       OLDIFS="$IFS"
       IFS="
 "
