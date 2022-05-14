@@ -28,30 +28,40 @@ prompt_segment() {
   unset separator
 }
 
-# Return the first ancestor PID of the PID of this process with the name issued
-# From: https://unix.stackexchange.com/a/459007
-# TODO: Consider reading from `/proc/<pid>/*` using only POSIX shell builtins
-# Note: the `/proc` is not guaranteed to be on all unices (see BSD, Mac...)
-# See:
-# - https://stackoverflow.com/a/50457487
-# - https://stackoverflow.com/a/1525673
-get_apid() {
-  ps -Ao pid= -o ppid= -o comm= |
-    awk -v p="$$" -v ancestor="$1" '
-      {
-        pid = $1; ppid[pid] = $2
-        sub(/([[:space:]]*[[:digit:]]+){2}[[:space:]]*/, "")
-        name[pid] = $0
-      }
-      END {
-        while (p) {
-          if ( name[p] == ancestor ) {
-            print p, name[p]
-            exit
-          }
-          p = ppid[p]
-        }
-      }'
+# Get First Ancestor Process
+# Requires: <TARGET_PNAME> <PID_TARGET_OR_CHILD>
+# It returns: <PID> <PPID> <PNAME>
+# If TARGET_PNAME not found returns nothing
+# Note: `/proc` is not guaranteed to be on all unices (BSD, Solaris, Mac...)
+__get_fap(){
+  pname_target=$1
+  pname=""
+  pid=""
+  ppid=$2
+  while read -r line; do
+    case $line in
+      "Name:"*)
+        pname=${line##Name:	}
+      ;;
+      "Pid:"*)
+        pid=${line##Pid:	}
+      ;;
+      "PPid:"*)
+        ppid=${line##PPid:	}
+        if [ "$pname" = "$pname_target" ]; then
+          printf "%s %s %s\n" "$pid" "$ppid" "$pname"
+        elif [ "$ppid" = "0" ]; then
+          :
+        else
+          __get_fap "$pname_target" "$ppid"
+        fi
+        unset pname_target pname pid ppid
+        break
+      ;;
+      *)
+      ;;
+    esac
+  done < "/proc/$ppid/status"
 }
 
 prompt_context() {
@@ -61,7 +71,7 @@ prompt_context() {
     prompt_segment "$SEGMENT_SEPARATOR" black default
   fi
   # Check if inside an ssh session, also if using `sudo su`
-  if [ -z ${SSH_CLIENT+x} ] && [ -z ${SSH_TTY+x} ] && [ -z "$(get_apid sshd)" ]; then
+  if [ -z ${SSH_CLIENT+x} ] && [ -z ${SSH_TTY+x} ] && [ -z "$(__get_fap sshd $$)" ]; then
     PROMPT_LINE="$PROMPT_LINE %n "
   else
     PROMPT_LINE="$PROMPT_LINE %n%{%F{blue}%}@%{%F{cyan}%}%m "
@@ -149,7 +159,7 @@ build_prompt() {
   unset OLD_BG OLD_SEP
   printf "%s%s " "%{%f%b%k%}" "$PROMPT_LINE"
   unset PROMPT_LINE
-  unset -f prompt_segment prompt_status prompt_virtualenv prompt_context prompt_git get_apid
+  unset -f prompt_segment prompt_status prompt_virtualenv prompt_context prompt_git __get_fap
 }
 
 setopt prompt_subst
