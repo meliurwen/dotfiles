@@ -29,7 +29,7 @@ prompt_segment() {
 }
 
 # Get First Ancestor Process
-# Requires: <TARGET_PNAME> <PID_TARGET_OR_CHILD>
+# Requires: <TARGET_PNAME> <TARGET_OR_CHILD_PID>
 # It returns: <PID> <PPID> <PNAME>
 # If TARGET_PNAME not found returns nothing
 # Note: `/proc` is not guaranteed to be on all unices (BSD, Solaris, Mac...)
@@ -79,7 +79,7 @@ prompt_context() {
 }
 
 prompt_git() {
-  if ! command -pv git > /dev/null 2>&1; then
+  if ! command -v git > /dev/null 2>&1; then
     return
   fi
 
@@ -90,7 +90,7 @@ prompt_git() {
     git_str=""
     if [ -n "$git_status" ]; then
       prompt_segment "$SEGMENT_SEPARATOR" yellow black
-      # If sourced or executed by zsh overwrite with an associative array
+      # If sourced or executed by zsh, then overwrite with an associative array
       # https://zsh.sourceforge.io/Doc/Release/Parameters.html#Array-Parameters
       [ -z ${ZSH_VERSION+x} ] && set -A git_status ${(f)"${git_status}"}
       OLDIFS="$IFS"
