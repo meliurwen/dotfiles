@@ -52,7 +52,7 @@ font-3 = "Material Wifi Signal Enhanced:style=Regular:weight=bold:size=10"
 #modules-left = i3 clementine mpv
 modules-left = i3 mpv
 modules-center = date
-modules-right = temperature bluetooth wireless-network wired-network alsa battery
+modules-right = ${env:POLY_MODR}
 
 separator = " "
 spacing = 0
@@ -114,18 +114,17 @@ ramp-capacity-2 = 
 ramp-capacity-3 =  
 ramp-capacity-4 =  
 
-[module/alsa]
-type = internal/alsa
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = false
 interval = 5
 format-volume = <ramp-volume>
 format-muted = <label-muted>
 label-muted = 
 label-muted-foreground = ${color.grey}
 
-; You cannot customize click actions on official modules? Really?!? >:(
-;click-right = exec pavucontrol
+click-right = exec pavucontrol
 
-; Only applies if <ramp-volume> is used
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 

@@ -43,7 +43,7 @@ while [ $# -gt 0 ]; do
   case $COMMAND in
     "time-pos" | "time-remaining" | "duration" | "media-title" | "playlist-pos" | "playlist-pos-1" | "playlist-count" | "core-idle" | "play-pause-btn")
       if [ "$COMMAND" = "play-pause-btn" ]; then
-      COMMAND="core-idle"
+        COMMAND="core-idle"
       fi
       API_OUTPUT=$(printf '{ "command": ["get_property", "%s"] }\n' "$COMMAND" | socat - "$MPV_SOCKET_PATH")
     ;;

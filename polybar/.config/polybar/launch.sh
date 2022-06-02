@@ -20,6 +20,8 @@ do
 done
 unset cycle
 
+POLY_MODR="wireless-network wired-network pulseaudio battery"
+
 NET_IFACES="$(ip link show | awk '/^[0-9]+:/ {sub(/:/,"",$2); print $2}')"
 for NET_IFACE in $NET_IFACES ; do
   case $NET_IFACE in
@@ -34,13 +36,24 @@ if [ -d "$HWMON_MODULE" ]; then
   HWMON_BASEDIR="$(find "$HWMON_MODULE" -maxdepth 1 -type d -name 'hwmon*' | tail -n +2 | head -1)"
   POLY_HWMON="$HWMON_BASEDIR"/temp1_input
   unset HWMON_BASEDIR
+  POLY_MODR="temperature $POLY_MODR"
 fi
 unset HWMON_MODULE
 
+# Skip if the folder doesn't exist (kernel module not loaded) or it's empty
+if [ ! -d /sys/class/bluetooth ]; then
+    :
+elif [ -z "$(ls -A /sys/class/bluetooth)" ]; then
+    :
+else
+    POLY_MODR="bluetooth $POLY_MODR"
+fi
+
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    POLY_WLP=$POLY_WLP POLY_ENP=$POLY_ENP POLY_HWMON=$POLY_HWMON MONITOR=$m polybar main -c "$HOME/.config/polybar/config" &
+    POLY_WLP=$POLY_WLP POLY_ENP=$POLY_ENP POLY_HWMON=$POLY_HWMON POLY_MODR="$POLY_MODR" MONITOR=$m \
+      polybar main -c "$HOME/.config/polybar/config" &
   done
 fi
 
-unset POLY_WLP POLY_ENP POLY_HWMON
+unset POLY_WLP POLY_ENP POLY_HWMON POLY_MODR
