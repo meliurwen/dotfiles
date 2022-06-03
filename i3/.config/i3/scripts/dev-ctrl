@@ -1,27 +1,26 @@
 #!/bin/sh
 
 # You can call this script like this:
-# $ ./deviceControl.sh audio up
-# $ ./deviceControl.sh audio down
-# $ ./deviceControl.sh audio mute
+# $ ./deviceControl.sh audio up|down|mute
 # $ ./deviceControl.sh mic mute
-# $ ./deviceControl.sh brightness up
-# $ ./deviceControl.sh brightness down
-
+# $ ./deviceControl.sh brightness up|down
+#
+# Dependencies: dunstify brightnessctl pactl
+#
 # Acknowledgements:
 # https://github.com/dastorm/volume-notification-dunst/blob/master/volume.sh
 # https://gist.github.com/sebastiencs/5d7227f388d93374cebdf72e783fbd6a
 
 get_volume() {
-  amixer get Master | grep '%' | head -n 1 | cut -d '[' -f 2 | cut -d '%' -f 1
+  pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}'
 }
 
 is_mute() {
-  amixer get Master | grep '%' | grep -oE '[^ ]+$' | grep off > /dev/null
+  pactl get-sink-mute @DEFAULT_SINK@ | grep yes > /dev/null
 }
 
 is_mic_mute() {
-  amixer get Capture | grep '%' | grep -oE '[^ ]+$' | grep off > /dev/null
+  pactl get-source-mute @DEFAULT_SOURCE@ | grep yes > /dev/null
 }
 
 get_brightness() {
@@ -102,29 +101,27 @@ send_notification() {
   dunstify -i $notif_icon -r $replace_id -u normal "$notif_text"
 }
 
-# set the volume on (if it was muted)
-# and then up/down the volume of the 5%
+# Change default sink volume and toggle on/mute
+# In case of volume change, unmute first
 set_audio() {
   case $1 in
     up)
-      amixer -D pulse set Master on > /dev/null
-      amixer -D pulse sset Master 5%+ > /dev/null
+      pactl set-sink-mute @DEFAULT_SINK@ 0
+      pactl set-sink-volume @DEFAULT_SINK@ +5%
       send_notification audio
       ;;
     down)
-      amixer -D pulse set Master on > /dev/null
-      amixer -D pulse sset Master 5%- > /dev/null
+      pactl set-sink-mute @DEFAULT_SINK@ 0
+      pactl set-sink-volume @DEFAULT_SINK@ -5%
       send_notification audio
       ;;
     mute)
-      # toggle mute
-      amixer -D pulse set Master 1+ toggle > /dev/null
+      pactl set-sink-mute @DEFAULT_SINK@ toggle
       send_notification audio
       ;;
-    mic)
-      # toggle microphone mute
-      amixer -D pulse set Capture toggle > /dev/null
-      send_notification mic
+    *)
+      printf "Unrecognized audio setting!"
+      exit 1
       ;;
   esac
 }
@@ -140,15 +137,22 @@ set_brightness() {
       brightnessctl s 5%-
       send_notification brightness
       ;;
+    *)
+      printf "Unrecognized brightness setting!"
+      exit 1
+      ;;
   esac
 }
 
 set_mic() {
   case $1 in
     mute)
-      # toggle microphone mute
-      amixer -D pulse set Capture toggle > /dev/null
+      pactl set-source-mute @DEFAULT_SOURCE@ toggle
       send_notification mic
+      ;;
+    *)
+      printf "Unrecognized mic setting!"
+      exit 1
       ;;
   esac
 }
@@ -162,5 +166,9 @@ case $1 in
     ;;
   mic)
     set_mic "$2"
+    ;;
+  *)
+    printf "Unrecognized argument!"
+    exit 1
     ;;
 esac

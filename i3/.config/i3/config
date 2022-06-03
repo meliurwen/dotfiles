@@ -20,9 +20,7 @@ client.background       #ffffff
 font pango:monospace 8
 
 # Polybar
-bar {
-  i3bar_command $HOME/.config/polybar/launch.sh
-}
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 default_border pixel 1
 default_floating_border normal
