@@ -23,6 +23,17 @@ if [ "$TERM" = "linux" ]; then
    fi
 fi
 
-if [ -r "${XDG_CONFIG_HOME:-$HOME/.config/locale.conf}" ]; then
+# Load locale.conf in XDG paths
+# It is normally done by systemd but this is more agnostic
+# Credits: Arch Linux folks!
+if [ -n "$LANG" ]; then
+    :
+elif [ -r "${XDG_CONFIG_HOME:-$HOME/.config/locale.conf}" ]; then
     . "${XDG_CONFIG_HOME:-$HOME/.config/locale.conf}"
+elif [ -r /etc/locale.conf ]; then
+    . /etc/locale.conf
 fi
+LANG=${LANG:-C}
+export LANG LANGUAGE LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY \
+    LC_MESSAGES LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT \
+    LC_IDENTIFICATION
