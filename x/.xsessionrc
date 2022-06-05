@@ -10,8 +10,11 @@ export QT_STYLE_OVERRIDE=adwaita-dark
 
 # Add `~/.local/bin` to $PATH
 C_PATH="$HOME/.local/bin"
-[ -d "$C_PATH" ] && export PATH="$C_PATH:$PATH" || \
-    echo "Custom PATH dir not found: $C_PATH"
+if [ -d "$C_PATH" ]; then
+    export PATH="$C_PATH:$PATH"
+else
+    printf "Custom PATH dir not found: %s" "$C_PATH"
+fi
 unset C_PATH
 
 # Mount remote volumes
