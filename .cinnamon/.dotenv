@@ -1,0 +1,5 @@
+KIND="dconf"
+SCRIPTS_LIST="iniman"
+DLIST_FILE="cinnamon.deny.list"
+DPATH="/org/cinnamon/desktop/applications/terminal/"
+INI_DST="cinnamon.dconf"
