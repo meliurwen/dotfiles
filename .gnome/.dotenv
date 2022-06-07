@@ -1,0 +1,5 @@
+KIND="dconf"
+SCRIPTS_LIST="iniman"
+DLIST_FILE="gnome.deny.list"
+DPATH="/org/gnome/desktop/interface/"
+INI_DST="gnome.dconf"
