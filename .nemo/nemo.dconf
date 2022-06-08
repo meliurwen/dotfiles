@@ -26,6 +26,7 @@ show-places-in-to-menus=true
 show-reload-icon-toolbar=true
 show-search-icon-toolbar=true
 show-show-thumbnails-toolbar=false
+start-with-dual-pane=false
 thumbnail-limit=uint64 10485760
 tooltips-in-icon-view=false
 tooltips-on-desktop=false
@@ -45,3 +46,7 @@ selection-menu-open-as-root=false
 selection-menu-open-in-terminal=false
 selection-menu-pin=false
 selection-menu-scripts=false
+
+[window-state]
+sidebar-bookmark-breakpoint=0
+start-with-menu-bar=false

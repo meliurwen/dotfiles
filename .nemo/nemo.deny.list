@@ -1,2 +1,4 @@
 preferences show-hidden-files
-window-state
+window-state geometry
+window-state maximized
+window-state sidebar-width
