@@ -92,7 +92,7 @@ prompt_git() {
       prompt_segment "$SEGMENT_SEPARATOR" yellow black
       # If sourced or executed by zsh, then overwrite with an associative array
       # https://zsh.sourceforge.io/Doc/Release/Parameters.html#Array-Parameters
-      [ -z ${ZSH_VERSION+x} ] && set -A git_status ${(f)"${git_status}"}
+      [ -z ${ZSH_VERSION+x} ] || set -A git_status ${(f)"${git_status}"}
       OLDIFS="$IFS"
       IFS="
 "
