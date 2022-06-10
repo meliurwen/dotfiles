@@ -59,13 +59,13 @@ cat <settings_file>.dconf | dconf load <dir_subpath_inside_db>
 List all extensions into a file:
 
 ```sh
-codium --list-extensions > codium-extensions.list
+codium --list-extensions > vscode/codium-extensions.list
 ```
 
 Install all the extensions listed into a file (any line that starts with `#` will get ignored):
 
 ```sh
-cat codium-extensions.txt | grep -v '^#' | xargs -L1 codium --install-extension
+cat vscode/codium-extensions.list | grep -v '^#' | xargs -L1 codium --install-extension
 ```
 
 Order alphabetically and format `settings.json`:
