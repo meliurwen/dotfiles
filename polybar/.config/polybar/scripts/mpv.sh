@@ -61,10 +61,15 @@ while [ $# -gt 0 ]; do
   JSON_DATA="$(printf "%s" "$API_OUTPUT" | jq -r .data)"
   case $COMMAND in
     "time-pos" | "time-remaining" | "duration")
-      API_OUTPUT="$(time_to_human "$(printf "%s" "$JSON_DATA" | cut -d'.' -f 1)")"
+      API_OUTPUT="$(time_to_human "$(printf "%s" "${JSON_DATA%%.*}")")"
     ;;
     "media-title")
-      API_OUTPUT=$(printf "%s" "$JSON_DATA" | cut -c 1-35)
+      # Jesus Frakking Christ, from 2006 >:'(
+      # https://lists.gnu.org/archive/html/bug-coreutils/2006-07/msg00044.html
+      # Note: I can't find a clean POSIX way to accomplish multi-byte chars
+      #       string truncation. Temporarly falling back to the bash parameters
+      #       expansion method.
+      API_OUTPUT=$(printf "%s" "$(bash -c "tmp_stdin=\"$JSON_DATA\" && printf \"%s\" \"\${tmp_stdin::35}\"")")
     ;;
     "playlist-pos" | "playlist-pos-1" | "playlist-count")
       API_OUTPUT="$JSON_DATA"
