@@ -16,7 +16,7 @@ URxvt*boldItalicFont:           xft:ProggyCleanTTSZ Nerd Font Mono:regular:size=
 ! perl extensions
 URxvt.perl-ext-common:          default,resize-font
 
-Xft.dpi:                        109
+Xft.dpi:                        116
 URxvt*termName:                 rxvt-unicode
 URxvt.iso14755:                 False
 URxvt.iso14755_52:              False
