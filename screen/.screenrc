@@ -16,7 +16,7 @@ defscrollback 10000
 
 # backtick id lifespan autorefresh cmd args...
 backtick 1 10 10 $HOME/.config/screen/bin/battery.sh --color screen
-backtick 2 10 10 $HOME/.config/screen/bin/netinfo.sh --color screen
+backtick 2 10 10 $HOME/.config/screen/bin/netinfo.sh --icon ascii --color screen
 
 # Statusbar
 hardstatus on
