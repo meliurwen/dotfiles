@@ -17,11 +17,12 @@ defscrollback 10000
 # backtick id lifespan autorefresh cmd args...
 backtick 1 10 10 $HOME/.config/screen/bin/battery.sh --unit --symbols ascii --icon ascii --color screen
 backtick 2 10 10 $HOME/.config/screen/bin/netinfo.sh --icon ascii --color screen
+backtick 3 10 10 $HOME/.config/screen/bin/cputemp.sh --unit --color screen
 
 # Statusbar
 hardstatus on
 hardstatus alwayslastline
-hardstatus string '%-Lw%?%E%{= ck}%:%{= mk}%? %n%f %t %{-}%+Lw%{= dd}%=%{b}%D %d %M %c%=%{K}[%{y}Avg: %l%{K}][%1`%{K}][%2`]'
+hardstatus string '%-Lw%?%E%{= ck}%:%{= mk}%? %n%f %t %{-}%+Lw%{= dd}%=%{b}%D %d %M %c%=%{K}[%{y}Avg: %l%{K}][%3`%{K}][%2`][%1`]'
 
 # Window captions
 caption always
