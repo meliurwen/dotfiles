@@ -12,21 +12,21 @@
 # https://gist.github.com/sebastiencs/5d7227f388d93374cebdf72e783fbd6a
 
 get_volume() {
-  pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}'
+  LC_ALL=C pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}'
 }
 
 is_mute() {
-  pactl get-sink-mute @DEFAULT_SINK@ | grep yes > /dev/null
+  LC_ALL=C pactl get-sink-mute @DEFAULT_SINK@ | grep yes > /dev/null
 }
 
 is_mic_mute() {
-  pactl get-source-mute @DEFAULT_SOURCE@ | grep yes > /dev/null
+  LC_ALL=C pactl get-source-mute @DEFAULT_SOURCE@ | grep yes > /dev/null
 }
 
 get_brightness() {
   max_bright=$(cat /sys/class/backlight/intel_backlight/max_brightness)
   act_bright=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
-  echo $(( (act_bright*100+(max_bright/2))/max_bright ))
+  printf "%s\n" "$(( (act_bright*100+(max_bright/2))/max_bright ))"
 }
 
 get_level_icon() {
