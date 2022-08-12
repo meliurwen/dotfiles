@@ -58,6 +58,39 @@ while [ $# -gt 0 ] ; do
         ;;
       esac
     ;;
+    "--icon")
+      case $2 in
+        "ascii"|""|"--"*)
+          case "$2" in
+              "--"*|"")
+                : # skip if it's a parameter or is empty
+              ;;
+              *)
+                shift
+              ;;
+          esac
+          iconize=1
+          iconlvl0="[----]"
+          iconlvl1="[#---]"
+          iconlvl2="[##--]"
+          iconlvl3="[###-]"
+          iconlvl4="[####]"
+        ;;
+        "nerd")
+          shift
+          iconize=1
+          iconlvl0=
+          iconlvl1=
+          iconlvl2=
+          iconlvl3=
+          iconlvl4=
+        ;;
+        *)
+          printf "Icon coding not supported. Aborting...\n"
+          exit 1
+        ;;
+      esac
+    ;;
     *)
       printf "Parameter not recognized. Aborting...\n"
       exit 1
@@ -77,6 +110,20 @@ __colorize() {
     color="$colred"
   else
     color="$colred_blink"
+  fi
+}
+
+__iconize() {
+  if [ "$1" -lt 40 ]; then
+    icon="$iconlvl0"
+  elif [ "$1" -lt 60 ]; then
+    icon="$iconlvl1"
+  elif [ "$1" -lt 70 ]; then
+    icon="$iconlvl2"
+  elif [ "$1" -lt 80 ]; then
+    icon="$iconlvl3"
+  else
+    icon="$iconlvl4"
   fi
 }
 
@@ -100,13 +147,14 @@ for cpu in /sys/devices/platform/coretemp.?; do
       [ $is_package = 1 ] && break
     done
     [ "$colorize" = 1 ] && __colorize "$cpu_temp"
+    [ "$iconize" = 1 ] && __iconize "$cpu_temp"
     if [ $multi_cpu = 1 ]; then
       sep="|"
     else
       sep=""
       multi_cpu=1
     fi
-    printf "%b%s%s%b%s" "$color" "$cpu_temp" "$unitsymbol" "$colend$colbgend" "$sep"
+    printf "%b%s%s%s%b%s" "$color" "${icon}" "$cpu_temp" "$unitsymbol" "$colend$colbgend" "$sep"
     # Only one hwmonX should be in hwmon, pick the first in case of multiple
     break
   done
