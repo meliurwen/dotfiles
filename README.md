@@ -70,20 +70,33 @@ cat vscode/codium-extensions.list | grep -v '^#' | xargs -L1 codium --install-ex
 
 Order alphabetically and format `settings.json`:
 
-> **Note:** Unfortunately there is no in-place feature available a the moment
+> **Note 1:** Unfortunately there is no in-place feature available a the moment
+>
+> **Note 2:** Manually remove all comments (`//` or `/* */`) first; they are
+> [non-standard](https://www.ecma-international.org/publications-and-standards/standards/ecma-404/),
+> [bad practice](https://web.archive.org/web/20180814033116/https://plus.google.com/+DouglasCrockfordEsq/posts/RK8qyGVaGSr)
+> and [not supported](https://github.com/stedolan/jq/wiki/FAQ) by `jq`.
 
 ```sh
-VSC_D="vscode/.config/Code/User/" sh -c '\
-    jq --sort-keys . "${VSC_D}settings.json" > "${VSC_D}settings.json.new" && \
-        mv "${VSC_D}settings.json.new" "${VSC_D}settings.json"'
+VSC_D="vscode/.config/Code/User/" VSC_J="settings.json" sh -c '\
+    jq --indent 2 --sort-keys . "${VSC_D}${VSC_J}" > "${VSC_D}${VSC_J}.new" && \
+        mv "${VSC_D}${VSC_J}.new" "${VSC_D}${VSC_J}"'
 ```
 
 Order alphabetically and format `argv.json`:
 
 ```sh
-VSC_D="vscode/.vscode/" sh -c '\
-    jq --sort-keys . "${VSC_D}argv.json" > "${VSC_D}argv.json.new" && \
-        mv "${VSC_D}argv.json.new" "${VSC_D}argv.json"'
+VSC_D="vscode/.vscode/" VSC_J="argv.json" sh -c '\
+    jq --indent 2 --sort-keys . "${VSC_D}${VSC_J}" > "${VSC_D}${VSC_J}.new" && \
+        mv "${VSC_D}${VSC_J}.new" "${VSC_D}${VSC_J}"'
+```
+
+Format `keybindings.json`:
+
+```sh
+VSC_D="vscode/.config/Code/User/" VSC_J="keybindings.json" sh -c '\
+    cat "${VSC_D}${VSC_J}" | jq --indent 2 > "${VSC_D}${VSC_J}.new" && \
+        mv "${VSC_D}${VSC_J}.new" "${VSC_D}${VSC_J}"'
 ```
 
 ## Stow
