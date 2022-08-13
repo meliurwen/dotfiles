@@ -3,8 +3,11 @@ dawidd6.debian-vscode
 dracula-theme.theme-dracula
 humao.rest-client
 James-Yu.latex-workshop
+llvm-vs-code-extensions.vscode-clangd
+matklad.rust-analyzer
 mikestead.dotenv
 ms-python.python
+notskm.clang-tidy
 redhat.vscode-yaml
-ryanluker.vscode-coverage-gutters
 timonwong.shellcheck
+xaver.clang-format

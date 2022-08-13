@@ -1,0 +1,10 @@
+[
+  {
+    "key": "ctrl+k",
+    "command": "rust-analyzer.toggleInlayHints"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "clangd.inlayHints.toggle"
+  }
+]
