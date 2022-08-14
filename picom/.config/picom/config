@@ -22,8 +22,11 @@ shadow-opacity = 0.3;
 shadow-exclude = [
     "_GTK_FRAME_EXTENTS@:c",
     "_NET_WM_STATE@:a *= '_NET_WM_STATE_HIDDEN'",
+    "window_type = 'menu'",
+    "(class_g = 'Firefox' || class_g = 'Librewolf') && (window_type = 'utility' || window_type = 'popup_menu')",
     "class_g = 'URxvt'",
-    "class_g = 'TelegramDesktop'"
+    "class_g = 'TelegramDesktop'",
+    "class_g = 'trayer'"
 ];
 
 ## Fading
@@ -67,6 +70,8 @@ blur-background-exclude = [
     "window_type = 'utility'",
     "window_type = 'dialog'",
     "window_type = 'notification'",
-    "window_type = 'normal' && !class_g = 'URxvt' && !class_g = 'Rofi'",
+    "window_type = 'menu'",
+    "window_type = 'normal' && !(class_g = 'URxvt' || class_g = 'Rofi')",
+    "(class_g = 'Firefox' || class_g = 'Librewolf') && window_type = 'popup_menu'",
     "class_g = 'TeamSpeak 3'"
 ];
