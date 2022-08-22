@@ -135,19 +135,43 @@ zstyle ':completion:*:*:*:users' ignored-patterns \
 # ... unless we really want to.
 zstyle '*' single-ignored show
 
+# ssh/mosh completion
+# source: https://serverfault.com/a/170481
+# ~/.ssh/known_hosts is disabled because hashed by default
+# Tip to unhash it: https://unix.stackexchange.com/a/175199
+# TODO: handle case in ~/.ssh/config where `Host` has multiple entries
+h=()
+if [ -r ~/.ssh/config ]; then
+  h=($h ${${${(@M)${(f)"$(< ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+fi
+if [ "$ZSH_THEME_SSH_KHOSTS" = "true" ] && [ -r ~/.ssh/known_hosts ]; then
+  h=($h ${${${(f)"$(< ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
+fi
+if [ $#h -gt 0 ]; then
+  zstyle ':completion:*:ssh:*' hosts $h
+  zstyle ':completion:*:slogin:*' hosts $h
+  zstyle ':completion:*:mosh:*' hosts $h
+  #zstyle ':completion:*:sftp:*' hosts $h
+fi
+unset h
+
 # automatically load bash completion functions
 autoload -U +X bashcompinit && bashcompinit
 
 # Colored manpages
+# See:
+# - https://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
+# - https://unix.stackexchange.com/a/600214
+# Careful with "" char, it may appear as "^[" in some text editors!
 man() {
     env \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-        LESS_TERMCAP_md=$(printf "\e[1;31m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[45;93m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[4;93m") \
+        LESS_TERMCAP_mb="[1;31m" \
+        LESS_TERMCAP_md="[1;31m" \
+        LESS_TERMCAP_me="[0m" \
+        LESS_TERMCAP_se="[0m" \
+        LESS_TERMCAP_so="[45;93m" \
+        LESS_TERMCAP_ue="[0m" \
+        LESS_TERMCAP_us="[4;93m" \
         man "$@"
 }
 
