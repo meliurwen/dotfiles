@@ -1,9 +1,15 @@
 #!/bin/zsh
 # ~/.zshrc
+#
+# This file is sourced only for interactive shells.
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin
+#
 # See:
 # - https://zsh.sourceforge.io/Doc/Release/
 # - https://stevenvanbael.com/profiling-zsh-startup
 # - https://zsh.sourceforge.io/Doc/Release/Options.html
+# - https://salsa.debian.org/debian/zsh/-/blob/debian/debian/zshrc
 
 ### History
 HISTFILE="$HOME/.zsh_history"
@@ -31,8 +37,8 @@ alias history='history 1' # Print whole history
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/key-bindings.zsh
 # /etc/zsh/zshrc
 
-# Use emacs key bindings
-bindkey -e
+# Use emacs key bindings by default
+bindkey ${KEYMAP:--e}
 
 # Make sure that the terminal is in application mode when zle is active, since
 # only then values from $terminfo are valid
@@ -50,30 +56,72 @@ if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
 
     # List of keys
     key=(
+        BackSpace  "${terminfo[kbs]}"
+        Home       "${terminfo[khome]}"
+        End        "${terminfo[kend]}"
+        Insert     "${terminfo[kich1]}"
+        Delete     "${terminfo[kdch1]}"
         Up         "${terminfo[kcuu1]}"
         Down       "${terminfo[kcud1]}"
+        Left       "${terminfo[kcub1]}"
+        Right      "${terminfo[kcuf1]}"
         PageUp     "${terminfo[kpp]}"
         PageDown   "${terminfo[knp]}"
     )
+
+    function bind2maps () {
+        local i sequence widget
+        local -a maps
+
+        while [[ "$1" != "--" ]]; do
+            maps+=( "$1" )
+            shift
+        done
+        shift
+
+        sequence="${key[$1]}"
+        widget="$2"
+
+        [[ -z "$sequence" ]] && return 1
+
+        for i in "${maps[@]}"; do
+            bindkey -M "$i" "$sequence" "$widget"
+        done
+    }
+
+    autoload -U up-line-or-beginning-search
+    autoload -U down-line-or-beginning-search
+    zle -N up-line-or-beginning-search
+    zle -N down-line-or-beginning-search
+
+    bind2maps emacs             -- BackSpace   backward-delete-char
+    bind2maps       viins       -- BackSpace   vi-backward-delete-char
+    bind2maps             vicmd -- BackSpace   vi-backward-char
+    bind2maps emacs             -- Home        beginning-of-line
+    bind2maps       viins vicmd -- Home        vi-beginning-of-line
+    bind2maps emacs             -- End         end-of-line
+    bind2maps       viins vicmd -- End         vi-end-of-line
+    bind2maps emacs viins       -- Insert      overwrite-mode
+    bind2maps             vicmd -- Insert      vi-insert
+    bind2maps emacs             -- Delete      delete-char
+    bind2maps       viins vicmd -- Delete      vi-delete-char
+    bind2maps emacs viins vicmd -- Up          up-line-or-beginning-search
+    bind2maps emacs viins vicmd -- Down        down-line-or-beginning-search
+    bind2maps emacs             -- Left        backward-char
+    bind2maps       viins vicmd -- Left        vi-backward-char
+    bind2maps emacs             -- Right       forward-char
+    bind2maps       viins vicmd -- Right       vi-forward-char
+    bind2maps emacs viins vicmd -- PageUp      up-line-or-history
+    bind2maps emacs viins vicmd -- PageDown    down-line-or-history
+
+    unfunction bind2maps
+
 else
     # Fallback to manually managed user-driven database
     printf 'Failed to setup keys using terminfo (application mode unsuported).\n'
     # TODO: set zkbd mode
     # See: https://github.com/vinipsmaker/dotfiles/blob/master/config/.zshrc
 fi
-
-if [[ -n "${key[Up]}" ]] && [[ -n "${key[Down]}" ]]; then
-    autoload -U up-line-or-beginning-search
-    autoload -U down-line-or-beginning-search
-    zle -N up-line-or-beginning-search
-    zle -N down-line-or-beginning-search
-
-    bindkey "${key[Up]}" up-line-or-beginning-search
-    bindkey "${key[Down]}" down-line-or-beginning-search
-fi
-[[ -n "${key[PageUp]}" ]] && bindkey "${key[PageUp]}" up-line-or-history
-[[ -n "${key[PageDown]}" ]] && bindkey "${key[PageDown]}" down-line-or-history
-
 
 ### Completion (dump)
 # Note: This stuff probably has to be run before defining completion configs
