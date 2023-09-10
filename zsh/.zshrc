@@ -210,6 +210,10 @@ autoload -U +X bashcompinit && bashcompinit
 # See:
 # - https://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
 # - https://unix.stackexchange.com/a/600214
+# - Since mid 2023 this is needed on Debian sid (and probably other distros too):
+#   - https://stackoverflow.com/a/32456403
+#   - https://bbs.archlinux.org/viewtopic.php?pid=2113876#p2113876
+#   - https://savannah.gnu.org/bugs/?func=detailitem&item_id=63583
 # Careful with "" char, it may appear as "^[" in some text editors!
 man() {
     env \
@@ -220,6 +224,7 @@ man() {
         LESS_TERMCAP_so="[45;93m" \
         LESS_TERMCAP_ue="[0m" \
         LESS_TERMCAP_us="[4;93m" \
+        MANROFFOPT=-c \
         man "$@"
 }
 
