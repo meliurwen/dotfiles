@@ -249,4 +249,7 @@ for plugin_f in "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/"*(.zsh|.zsh-them
     source $plugin_f || printf "An error has occurred sourcing: %s\n" "$plugin_f"
 done
 
-#PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+# If a default prompt is set, then change to this custom one
+if [ "$PS1" = "%m%# " ]; then
+    PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+fi
