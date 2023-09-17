@@ -16,8 +16,3 @@ else
     printf "Custom PATH dir not found: %s" "$C_PATH"
 fi
 unset C_PATH
-
-# Mount remote volumes
-if fsmartconnect --version > /dev/null ; then
-    fsmartconnect &
-fi
