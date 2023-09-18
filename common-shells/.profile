@@ -18,7 +18,7 @@ if [ "$TERM" = "linux" ]; then
         setfont "$CONSOLE_FONTD/$CONSOLE_FONT"
     fi
    # Enable numlock for TTY
-   if command -v setleds; then
+   if command -v setleds > /dev/null 2>&1; then
        setleds -D +num
    fi
 fi

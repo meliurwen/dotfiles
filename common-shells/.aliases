@@ -6,7 +6,7 @@ alias upgrade='sudo apt-get update && \
                sudo apt-get clean' # System clean upgrade
 alias diff='diff --color'
 alias ls='ls --color=tty'
-alias mutt='TERM=${TERM}-256color mutt'
-alias neomutt='TERM=${TERM}-256color neomutt'
+alias mutt='TERM=${TERM%-256color}-256color mutt'
+alias neomutt='TERM=${TERM%-256color}-256color neomutt'
 
 alias mpv-pip='mpv --profile="pip"'
